@@ -10,7 +10,8 @@ export default function Login() {
 
     const navigate = useNavigate()
     const navBtn = () => {
-        navigate("/")
+        window.location.href = "/home"
+        // navigate("/home")
     }
     return (
         <>

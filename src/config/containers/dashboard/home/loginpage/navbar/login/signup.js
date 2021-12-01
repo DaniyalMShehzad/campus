@@ -19,7 +19,7 @@ export default function SignUp() {
                 <div className="SignUp2">
                     <form className="formLogin2">
                         <div className="login3">
-                            <h3 className="signinh4">Sign in</h3>
+                            <h3 className="signinh4">Sign Up</h3>
                             <img className="guestImg" src="https://images.macrumors.com/t/n4CqVR2eujJL-GkUPhv1oao_PmI=/1600x/article-new/2019/04/guest-user-250x250.jpg" />
                             <div className="setEmail">
                                 <label className="EmailLabel">User Name</label>

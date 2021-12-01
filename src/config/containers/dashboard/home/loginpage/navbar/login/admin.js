@@ -10,7 +10,7 @@ export default function Admin() {
 
     const navigate=useNavigate()
     const navBtn=()=>{
-        navigate("/")
+        window.location.href = "/adminhome"
     }
     return (
         <>
@@ -19,7 +19,7 @@ export default function Admin() {
             <div className="Admin2">
                 <form className="formLogin">
                     <div className="login3">
-                        <h3 className="signinh4">Sign in</h3>
+                        <h3 className="signinh4">Admin</h3>
                         <img className="guestImg" src="https://images.macrumors.com/t/n4CqVR2eujJL-GkUPhv1oao_PmI=/1600x/article-new/2019/04/guest-user-250x250.jpg" />
                         <div className="setEmail">
                             <label className="EmailLabel">Email address</label>

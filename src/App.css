@@ -125,3 +125,162 @@ a.navLogin {
   display: flex;
   justify-content: space-around;
 }
+
+.homeParent2 {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  width: 100%;
+  justify-content: space-around;
+}
+.PostParent2{
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  width: 100%;
+  justify-content: space-around;
+}
+.HomeCards {
+  text-align: center;
+  /* display: flex; */
+  /* flex-direction: column; */
+  width: 30%;
+  border: 1px outset;
+  margin-bottom: 19px;
+  border-radius: 23px;
+  background-color: ghostwhite;
+}
+.Postcards{
+  text-align: center;
+  /* display: flex; */
+  /* flex-direction: column; */
+  width: 30%;
+  border: 1px outset;
+  margin-bottom: 19px;
+  border-radius: 23px;
+  background-color: ghostwhite;
+}
+.Home2 {
+  display: flex;
+  flex-wrap: wrap;
+  position: absolute;
+    top: 100px;
+}
+.Post{
+  display: flex;
+  flex-wrap: wrap;
+  position: absolute;
+    top: 100px;
+}
+img.Companyimg {
+  width: 77%;
+  margin-top: 23px;
+}
+img.Postimg{
+  width: 77%;
+  margin-top: 23px;
+}
+p.companyAddress {
+  margin: 0px;
+  padding-bottom: 25px;
+}
+p.companyDescription {
+  margin: 0;
+}
+p.companyBusiness {
+  margin: 0;
+}
+h4.CompanyH4Name {
+  margin: 0;
+}
+h4.PostH4Name{
+  margin: 0;
+}
+.PostBusiness{
+  margin: 0;
+}
+.PostDescription{
+  margin: 0;
+}
+.PostAddress{
+  margin: 0;
+}
+button.AddData {
+  background-color: black;
+  height: 35px;
+  width: 122px;
+  border: none;
+  color: white;
+  font-size: 17px;
+  border-radius: 24px;
+  margin-bottom: 15px;
+  margin-top: 9px;
+  cursor: pointer;
+}
+
+.Data {
+  display: flex;
+  justify-content: center;
+}
+.dataParent {
+  width: 50%;
+  /* display: flex; */
+  background-color: ghostwhite;
+  border-radius: 24px;
+  border: 1px outset;
+  position: absolute;
+  top: 100px;
+}
+.DataField {
+  width: 100%;
+  margin: 12px;
+}
+label.DataLabel {
+  display: flex;
+  font-size: 14px;
+  color: #878787;
+  margin-bottom: 6px;
+}
+.DataField {
+  width: 100%;
+  margin: 12px;
+}
+form.dataForm {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  align-content: center;
+  align-items: center;
+}
+input.dataInputBar {
+  width: 90%;
+  height: 40px;
+  line-height: 10px;
+  font-size: 15px;
+  outline: none;
+}
+button.DataAddData {
+  margin-bottom: 24px;
+  width: 24%;
+  height: 40px;
+  background-color: black;
+  color: white;
+  border: none;
+  border-radius: 32px;
+  cursor: pointer;
+}
+h4.DataH4EnterData {
+  font-size: 25px;
+  margin-bottom: 10px;
+}
+.DataImg {
+  width: 84.1px;
+  height: 21.1px;
+  opacity: 1;
+  overflow: hidden;
+  /* position: absolute; */
+  /* z-index: -1; */
+}
+.DataDiv {
+  width: 69%;
+}
