@@ -2,7 +2,8 @@ import React, { useState } from 'react'
 import { useNavigate } from 'react-router'
 import { Link, NavLink } from "react-router-dom";
 import Navbar from '../../navbar';
-
+import { Input, Space } from 'antd';
+import { EyeInvisibleOutlined, EyeTwoTone } from '@ant-design/icons';
 export default function Company() {
     const [email, setEmail] = useState()
     const [password, setPassowrd] = useState()
@@ -27,13 +28,23 @@ export default function Company() {
                             </div>
                             <div className="setEmail">
                                 <label className="EmailLabel">Email address</label>
-                                <input onChange={(e) => setKey(e.target.value)} type='password' required className="enterEmail" placeholder="enter key" />
+                                <Input.Password
+                                    onChange={(e) => setKey(e.target.value)}
+                                    placeholder="enter key"
+                                    className="enterEmail"
+                                    iconRender={visible => (visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />)}
+                                />
                             </div>
                             <div className="setEmail">
                                 <label className="EmailLabel">Password</label>
-                                <input onChange={(e) => setPassowrd(e.target.value)} type='password' required className="enterEmail" placeholder="password" />
+                                <Input.Password
+                                    onChange={(e) => setPassowrd(e.target.value)}
+                                    placeholder="input password"
+                                    className="enterEmail"
+                                    iconRender={visible => (visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />)}
+                                />
                             </div>
-                            <button className="LoginBtn" onClick={navBtn}>sign in</button>
+                            <button className="LoginBtn"  onClick={navBtn}>sign in</button>
                         </div>
                     </form>
                 </div>

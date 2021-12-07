@@ -49,7 +49,7 @@ export default function Home(props) {
       <Divider />
       <List>
         {['Home', 'Post', 'data'].map((text, index) => (
-          <ListItem button key={text} onClick={()=>navigate(`/${text}`,)}>
+          <ListItem button key={text} onClick={()=>navigate(`/login${text}`,)}>
             <ListItemIcon>
               {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
             </ListItemIcon>

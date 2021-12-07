@@ -1,13 +1,40 @@
 import React, { useState } from 'react'
 import Home from '../home'
+import { getDatabase, ref, set, push, child } from "firebase/database";
 
 export default function Data() {
     const [username, setUserName] = useState();
     const [email, setEmail] = useState();
     const [address, setAddress] = useState();
     const [contact, setContact] = useState();
-    const [Experience, setExperience] = useState();
+    const [experience, setExperience] = useState();
     const [image, setImage] = useState();
+
+    const addData= ()=> {
+        const db = getDatabase();
+        const newPostKey = push(child(ref(db), 'users')).key;
+        set(ref(db, + newPostKey), {
+          image: image,
+          username: username,
+          email: email,
+          address:address,
+          contact:contact,
+          experience:experience,
+          uid: newPostKey
+        })
+        .then(() => {
+          // Data saved successfully!
+          console.log("success");
+          alert("data sent")
+          
+        })
+        .catch((error) => {
+          // The write failed...
+          alert("error")
+        });
+      }
+
+
     return (
         <div>
             <>
@@ -42,7 +69,7 @@ export default function Data() {
                                 <textarea name="w3review" rows="4" cols="50" onChange={(e) => setExperience(e.target.value)}> </textarea>
                                 </div>
                             </div>
-                            <button className="DataAddData">Add Data</button>
+                            <button className="DataAddData" onClick={addData}>Add Data</button>
                         </form>
                     </div>
                 </div>

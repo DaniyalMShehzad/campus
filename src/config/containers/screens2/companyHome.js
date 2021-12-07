@@ -27,8 +27,9 @@ export default function CompanyHome(props) {
     setMobileOpen(!mobileOpen);
   };
 
-  // useEffect                
-  // const firstData = window().location.pathname.split("/")
+  // useEffect(()=>{
+  //   const firstData = window().location.pathname.split("/")
+  // },[])                
 
   // console.log(firstData);
   const drawer = (

@@ -2,12 +2,27 @@ import React, { useState } from 'react'
 import { useNavigate } from 'react-router'
 import { Link, NavLink } from "react-router-dom";
 import Navbar from '../../navbar';
-
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { useDispatch } from 'react-redux';
+import { signup } from '../../../../../../firebaseconfig/firebaseconfig';
+import { Input, Space } from 'antd';
+import { EyeInvisibleOutlined, EyeTwoTone } from '@ant-design/icons';
 export default function SignUp() {
     const [email, setEmail] = useState()
     const [password, setPassowrd] = useState()
     const [username, setUserName] = useState()
 
+    const navigate = useNavigate()
+    const dispatch = useDispatch()
+    const SignUp = (e) => {
+        e.preventDefault()
+        let obj = {
+            email,
+            password,
+            username,
+        }
+        dispatch((dispatch) => signup(dispatch, navigate, obj))
+    }
     // const navigate=useNavigate()
     // const navBtn=()=>{
     //     navigate("/")
@@ -31,9 +46,14 @@ export default function SignUp() {
                             </div>
                             <div className="setEmail">
                                 <label className="EmailLabel">Password</label>
-                                <input onChange={(e) => setPassowrd(e.target.value)} type='password' required className="enterEmail" placeholder="password" />
+                                <Input.Password
+                                    onChange={(e) => setPassowrd(e.target.value)}
+                                    placeholder="input password"
+                                    className="enterEmail"
+                                    iconRender={visible => (visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />)}
+                                />
                             </div>
-                            <button className="LoginBtn">sign in</button>
+                            <button className="LoginBtn" onClick={SignUp}>sign up</button>
                         </div>
                     </form>
                 </div>
