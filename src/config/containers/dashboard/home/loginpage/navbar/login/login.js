@@ -20,7 +20,7 @@ const signIn = (e) => {
         email,
         password,
     }
-    dispatch(()=>login(obj,navigate,dispatch))
+    dispatch((dispatch)=>login(obj,navigate,dispatch))
 }
     return (
         <>

@@ -274,11 +274,36 @@ form.dataForm {
   align-items: center;
 }
 input.dataInputBar {
-  width: 90%;
-  height: 40px;
-  line-height: 10px;
-  font-size: 15px;
-  outline: none;
+    height: 40px;
+    outline: none;
+    box-sizing: border-box;
+    margin: 0;
+    font-variant: tabular-nums;
+    list-style: none;
+    font-feature-settings: "tnum";
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    min-width: 0;
+    padding: 4px 11px;
+    color: rgba(0,0,0,.85);
+    font-size: 14px;
+    line-height: 1.5715;
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid #d9d9d9;
+    border-radius: 2px;
+    transition: all .3s;
+}
+.dataInputBar:hover {
+  border-color: #40a9ff;
+  border-right-width: 1px!important;
+  z-index: 1;
+}
+.dataInputBar:focus {
+  border-color: #40a9ff;
+  border-right-width: 1px!important;
+  z-index: 1;
 }
 button.DataAddData {
   margin-bottom: 24px;
@@ -295,8 +320,8 @@ h4.DataH4EnterData {
   margin-bottom: 10px;
 }
 .DataImg {
-  width: 84.1px;
-  height: 21.1px;
+  width: 100px;
+  height: 30px;
   opacity: 1;
   overflow: hidden;
   /* position: absolute; */
@@ -331,4 +356,36 @@ input.enterEmail:focus {
   transition: all .3s;
   display: inline-flex;
   height: 41px;
+}
+textarea.DataTextBar{
+    width: 122px;
+    outline: none;
+    box-sizing: border-box;
+    margin: 0;
+    font-variant: tabular-nums;
+    list-style: none;
+    font-feature-settings: "tnum";
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    min-width: 0;
+    padding: 4px 11px;
+    color: rgba(0,0,0,.85);
+    font-size: 14px;
+    line-height: 1.5715;
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid #d9d9d9;
+    border-radius: 2px;
+    transition: all .3s;
+}
+.DataTextBar:hover {
+  border-color: #40a9ff;
+  border-right-width: 1px!important;
+  z-index: 1;
+}
+.DataTextBar:focus {
+  border-color: #40a9ff;
+  border-right-width: 1px!important;
+  z-index: 1;
 }

@@ -23,8 +23,8 @@ export default function Routing() {
             <>
               <Home >
                 <Routes>
-                  <Route path="/Loginhome" element={<Home2 />} />
-                  <Route path="/Loginpost" element={<Post />} />
+                  <Route path="/LoginHome" element={<Home2 />} />
+                  <Route path="/LoginPost" element={<Post />} />
                   <Route path="/Logindata" element={<Data />} />
                 </Routes>
               </Home>

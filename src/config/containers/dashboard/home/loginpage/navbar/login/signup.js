@@ -11,7 +11,6 @@ export default function SignUp() {
     const [email, setEmail] = useState()
     const [password, setPassowrd] = useState()
     const [username, setUserName] = useState()
-
     const navigate = useNavigate()
     const dispatch = useDispatch()
     const SignUp = (e) => {
@@ -22,6 +21,7 @@ export default function SignUp() {
             username,
         }
         dispatch((dispatch) => signup(dispatch, navigate, obj))
+        console.log(obj);
     }
     // const navigate=useNavigate()
     // const navBtn=()=>{

@@ -15,36 +15,50 @@ import MailIcon from '@mui/icons-material/Mail';
 import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import { useState } from 'react';
+import { useState,useEffect } from 'react';
 import { useNavigate } from 'react-router';
 import Home2 from './home/home2';
+import { useDispatch } from 'react-redux';
 const drawerWidth = 240;
 
 export default function Home(props) {
   const { window } = props;
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [loader, setLoader] = useState(false);
   const navigate =useNavigate()
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
+const dispatch=useDispatch()
+  useEffect(() => {
+    dispatch((dispatch)=>useruid(setLoader,dispatch))
+}, []);
+console.log(loader);
 
+
+
+const logout=()=>{
+  dispatch(()=>signout(navigate))
+}
   // useEffect                
   // const firstData = window().location.pathname.split("/")
 
   // console.log(firstData);
   const drawer = (
+    <>
     <div>
       <Toolbar />
       <Divider />
       <List>
-        {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-          <ListItem button key={text}>
+        {/* {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => ( */}
+          <ListItem>
             <ListItemIcon>
-              {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+              {/* {index % 2 === 0 ? <InboxIcon /> : <MailIcon />} */}
+              <button onClick={()=>logout()}>signout</button>
             </ListItemIcon>
-            <ListItemText primary={text} />
+            <ListItemText/>
           </ListItem>
-        ))}
+        {/* ))} */}
       </List>
       <Divider />
       <List>
@@ -58,6 +72,7 @@ export default function Home(props) {
         ))}
       </List>
     </div>
+    </>
   );
 
   const container = window !== undefined ? () => window().document.body : undefined;
@@ -123,9 +138,9 @@ export default function Home(props) {
         sx={{ flexGrow: 1, p: 3, width: { sm: `calc(100% - ${drawerWidth}px)` } }}
       >
         <Toolbar />
-        <Typography >
+        <div >
           {props.children}
-        </Typography>
+        </div>
       </Box>
     </Box>
   );

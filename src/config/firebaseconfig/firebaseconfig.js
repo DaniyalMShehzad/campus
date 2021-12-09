@@ -1,7 +1,7 @@
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
-import { getAuth,signInWithEmailAndPassword ,createUserWithEmailAndPassword} from "@firebase/auth";
-
+import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, onAuthStateChanged,signOut } from "@firebase/auth";
+import { getDatabase, ref, set, push } from "firebase/database";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -23,45 +23,153 @@ const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 
 const auth = getAuth();
-let login=(obj,navigate,dispatch)=>{
-signInWithEmailAndPassword(auth, obj.email, obj.password)
+let login = (obj, navigate, dispatch) => {
+  signInWithEmailAndPassword(auth, obj.email, obj.password)
+    .then((userCredential) => {
+      // Signed in 
+      const user = userCredential.user;
+      console.log(user.uid);
+      dispatch({
+        type: "LOGIN",
+        payload: user.uid,
+      })
+      // window.location.href = "/home2"
+      navigate("/home2")
+      // ...
+    })
+    .catch((error) => {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      alert("error" + errorMessage)
+    });
+}
+let authentication = (obj, navigate, dispatch) => {
+  console.log(obj);
+  return dispatch => {
+    const db = getDatabase();
+    set(ref(db, 'studentauthentication/' + obj.uid), obj).then(() => {
+
+      dispatch({
+        type: "STUDENTAUTHENTICATION",
+        ...obj,
+      })
+    })
+    // navigate({ state: obj })
+    console.log(obj);
+    // push(ref(db, + 'studentData/'), obj)
+    //   .then(() => {
+    //       // Data saved successfully!
+    //   // console.log("success");
+    //   // alert("data sent")
+    //   // console.log(obj);
+    //   // dispatch({
+    //   //   type: "ADDDATATATYPE",
+    //   //   payload: obj,
+    //   // })
+    //   // navigate("LoginHome",{ state: obj })
+    // })
+    // .catch((error) => {
+    //     // The write failed...
+    //     alert("error")
+    //   });
+  }
+}
+let signup = (dispatch, navigate, obj) => {
+  console.log(obj);
+  createUserWithEmailAndPassword(auth, obj.email, obj.password)
   .then((userCredential) => {
     // Signed in 
     const user = userCredential.user;
     console.log(user.uid);
     dispatch({
-      type:"LOGIN",
-      payload:user.uid,
+      type: "SIGNUP",
+      payload: user.uid,
     })
-    // window.location.href = "/home2"
-    navigate("/home2")
-    // ...
-  })
-  .catch((error) => {
-    const errorCode = error.code;
-    const errorMessage = error.message;
-    alert("error"+errorMessage)
+    console.log(obj);
+      alert("Success")
+      navigate("/home2")
+      // ...
+    })
+    .catch((error) => {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      alert("errorMessage" + errorMessage)
+      console.log("errorMessage" + errorMessage);
+    console.log(obj);
+      // ..
+    });
+}
+let useruid = (setLoader, dispatch) => {
+  setLoader(true);
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      const uid = user.uid;
+      console.log(uid);
+      dispatch({
+        type: "useruid",
+        payload: uid,
+      })
+      // setUserLogin(true);
+      setLoader(false);
+      // setUserData(location.state);
+      // getData();
+    } else {
+      console.log("error")
+    }
   });
 }
-let signup=(obj,dispatch,navigate)=>{
-createUserWithEmailAndPassword(auth, obj.email, obj.password)
-  .then((userCredential) => {
-    // Signed in 
-    const user = userCredential.user;
-    console.log(user.uid);
-    dispatch({
-      type:"SIGNUP",
-      payload:user.uid,
+// const addData = (obj,dispatch,navigate) => {
+//   let refrence = ref(db, "users/");
+//   let arr = [];
+//   onChildAdded(refrence, (snapshot) => {
+//     if (snapshot.exists()) {
+//       arr.push(snapshot.val());
+//       setUserList([...arr]);
+//       dispatch({
+//         type:"ADDDATATATYPE",
+//         payload:obj,
+//       })
+//     }
+//   });
+// };
+let addData = (obj, navigate, dispatch) => {
+  console.log(obj);
+  return dispatch => {
+    const db = getDatabase();
+    set(ref(db, 'studentData/' + obj.uid), obj).then(() => {
+
+      dispatch({
+        type: "ADDDATATATYPE",
+        ...obj,
+      })
     })
-    alert("Success")
-    navigate("/home2")
-    // ...
-  })
-  .catch((error) => {
-    const errorCode = error.code;
-    const errorMessage = error.message;
-    alert("errorMessage"+errorMessage)
-    // ..
-  });
+    // navigate({ state: obj })
+    console.log(obj);
+    // push(ref(db, + 'studentData/'), obj)
+    //   .then(() => {
+    //       // Data saved successfully!
+    //   // console.log("success");
+    //   // alert("data sent")
+    //   // console.log(obj);
+    //   // dispatch({
+    //   //   type: "ADDDATATATYPE",
+    //   //   payload: obj,
+    //   // })
+    //   // navigate("LoginHome",{ state: obj })
+    // })
+    // .catch((error) => {
+    //     // The write failed...
+    //     alert("error")
+    //   });
+  }
 }
-export{login,signup}
+let signout=(navigate)=>{
+signOut(auth).then(() => {
+  console.log("Sign-out successful");
+
+  navigate("/")
+}).catch((error) => {
+  console.log("An error happened.");
+});
+}
+export { login, signup, useruid, addData,signout,authentication }
