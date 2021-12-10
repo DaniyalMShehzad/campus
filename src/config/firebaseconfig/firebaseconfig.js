@@ -1,7 +1,7 @@
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, onAuthStateChanged,signOut } from "@firebase/auth";
-import { getDatabase, ref, set, push } from "firebase/database";
+import { getDatabase, ref, set, push, get, child } from "firebase/database";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -81,43 +81,61 @@ let signup = (dispatch, navigate, obj) => {
     // Signed in 
     const user = userCredential.user;
     console.log(user.uid);
-    dispatch({
-      type: "SIGNUP",
-      payload: user.uid,
+    let newobj={...obj,...user}
+    const db = getDatabase();
+    set(ref(db, 'authentication/' + newobj.uid), {
+      newobj
     })
+    // .then((res) => {
+    //   console.log(res)
+    //   // dispatch({
+    //   //   type: "STUDENTAUTHENTICATION",
+    //   //   ...obj,
+    //   // })
+    // })
+    // dispatch({
+    //   type: "SIGNUP",
+    //   payload: newobj,
+    // })
     console.log(obj);
-      alert("Success")
+      // alert("Success")
       navigate("/home2")
       // ...
+      console.log(newobj);
     })
     .catch((error) => {
       const errorCode = error.code;
       const errorMessage = error.message;
-      alert("errorMessage" + errorMessage)
       console.log("errorMessage" + errorMessage);
-    console.log(obj);
       // ..
     });
 }
-let useruid = (setLoader, dispatch) => {
-  setLoader(true);
-  onAuthStateChanged(auth, (user) => {
-    if (user) {
-      const uid = user.uid;
-      console.log(uid);
-      dispatch({
-        type: "useruid",
-        payload: uid,
-      })
-      // setUserLogin(true);
-      setLoader(false);
-      // setUserData(location.state);
-      // getData();
-    } else {
-      console.log("error")
-    }
-  });
-}
+// let useruid = (setLoader, dispatch) => {
+//   setLoader(true);
+//   onAuthStateChanged(auth, (user) => {
+//     if (user) {
+//       const uid = user.uid;
+//       console.log(uid);
+//       const dbRef = ref(getDatabase());
+//       get(child(dbRef, `authentication/${uid}/newobj`)).then((snapshot) => {
+//         // if (snapshot.exists()) {
+//           console.log(snapshot.val());
+//           let uidData= {...snapshot.val()}
+//         // }
+//         dispatch({
+//           type: "USERUIDDATA",
+//           payload: uidData,
+//         })
+//         // setUserLogin(true);
+//         // setUserData(location.state);
+//         // getData();
+//       })
+//       setLoader(false);
+//     } else {
+//       console.log("error")
+//     }
+//   });
+// }
 // const addData = (obj,dispatch,navigate) => {
 //   let refrence = ref(db, "users/");
 //   let arr = [];
@@ -172,4 +190,4 @@ signOut(auth).then(() => {
   console.log("An error happened.");
 });
 }
-export { login, signup, useruid, addData,signout,authentication }
+export { login, signup,  addData,signout,authentication }

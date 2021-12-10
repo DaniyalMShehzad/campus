@@ -19,6 +19,8 @@ import { useState,useEffect } from 'react';
 import { useNavigate } from 'react-router';
 import Home2 from './home/home2';
 import { useDispatch } from 'react-redux';
+import uiddata from '../../../../firebaseconfig/reducers/uiddata';
+import { signout } from '../../../../firebaseconfig/firebaseconfig';
 const drawerWidth = 240;
 
 export default function Home(props) {
@@ -30,9 +32,9 @@ export default function Home(props) {
     setMobileOpen(!mobileOpen);
   };
 const dispatch=useDispatch()
-  useEffect(() => {
-    dispatch((dispatch)=>useruid(setLoader,dispatch))
-}, []);
+//   useEffect(() => {
+//     dispatch((dispatch)=>uiddata(setLoader,dispatch))
+// }, []);
 console.log(loader);
 
 
