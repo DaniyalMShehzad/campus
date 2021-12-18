@@ -73,10 +73,11 @@ export default function CompanyAccount() {
     ]
     return (
         <>
-        <CompanyHome/>
+        <CompanyHome>
             <div className="account">
                 <h2>account</h2>
             </div>
+            </CompanyHome >
         </>
     )
 }

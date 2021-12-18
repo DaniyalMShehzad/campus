@@ -13,12 +13,15 @@ export default function SignUp() {
     const [username, setUserName] = useState()
     const navigate = useNavigate()
     const dispatch = useDispatch()
+    // console.log(type);
+    let type ={type:"user"}
     const SignUp = (e) => {
         e.preventDefault()
         let obj = {
             email,
             password,
             username,
+            type
         }
         dispatch((dispatch) => signup(dispatch, navigate, obj))
         console.log(obj);
@@ -32,7 +35,7 @@ export default function SignUp() {
             <div className="SignUp">
                 <Navbar />
                 <div className="SignUp2">
-                    <form className="formLogin2">
+                    <form className="formLogin2"  onSubmit={(e)=>SignUp(e)}>
                         <div className="login3">
                             <h3 className="signinh4">Sign Up</h3>
                             <img className="guestImg" src="https://images.macrumors.com/t/n4CqVR2eujJL-GkUPhv1oao_PmI=/1600x/article-new/2019/04/guest-user-250x250.jpg" />
@@ -53,7 +56,7 @@ export default function SignUp() {
                                     iconRender={visible => (visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />)}
                                 />
                             </div>
-                            <button className="LoginBtn" onClick={SignUp}>sign up</button>
+                            <button className="LoginBtn">sign up</button>
                         </div>
                     </form>
                 </div>

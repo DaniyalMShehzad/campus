@@ -27,14 +27,25 @@ let login = (obj, navigate, dispatch) => {
   signInWithEmailAndPassword(auth, obj.email, obj.password)
     .then((userCredential) => {
       // Signed in 
-      const user = userCredential.user;
-      console.log(user.uid);
-      dispatch({
-        type: "LOGIN",
-        payload: user.uid,
-      })
-      // window.location.href = "/home2"
-      navigate("/home2")
+      const user = userCredential.user.uid;
+      console.log(user);
+      const dbRef = ref(getDatabase());
+      get(child(dbRef, `authentication/${user}/newobj`)).then((snapshot) => {
+        if (snapshot.exists()) {
+          console.log(snapshot.val());
+          let uidData= {...snapshot.val()}
+          if(uidData?.type?.type==="user"){
+            navigate("/loginhome2")
+          }
+          else if(uidData?.type?.type==="company"){
+            navigate("/companyHome2")
+          }
+          dispatch({
+            type: "USERUIDDATA",
+            payload: uidData,
+          })
+        }
+        })
       // ...
     })
     .catch((error) => {
@@ -43,64 +54,83 @@ let login = (obj, navigate, dispatch) => {
       alert("error" + errorMessage)
     });
 }
-let authentication = (obj, navigate, dispatch) => {
-  console.log(obj);
-  return dispatch => {
-    const db = getDatabase();
-    set(ref(db, 'studentauthentication/' + obj.uid), obj).then(() => {
-
-      dispatch({
-        type: "STUDENTAUTHENTICATION",
-        ...obj,
-      })
-    })
-    // navigate({ state: obj })
-    console.log(obj);
-    // push(ref(db, + 'studentData/'), obj)
-    //   .then(() => {
-    //       // Data saved successfully!
-    //   // console.log("success");
-    //   // alert("data sent")
-    //   // console.log(obj);
-    //   // dispatch({
-    //   //   type: "ADDDATATATYPE",
-    //   //   payload: obj,
-    //   // })
-    //   // navigate("LoginHome",{ state: obj })
-    // })
-    // .catch((error) => {
-    //     // The write failed...
-    //     alert("error")
-    //   });
-  }
-}
+// let authentication = (obj, navigate, dispatch) => {
+//   console.log(obj);
+//   return dispatch => {
+//     const db = getDatabase();
+//     set(ref(db, 'studentauthentication/' + obj.uid), obj).then(() => {
+//       if(obj?.type?.type==="user"){
+//         navigate("/loginhome2")
+//       }
+//       else if(obj?.type?.type==="company"){
+//         navigate("/companyHome2")
+//       }
+//       dispatch({
+//         type: "STUDENTAUTHENTICATION",
+//         ...obj,
+//       })
+//     })
+//     // navigate({ state: obj })
+//     console.log(obj);
+//     // push(ref(db, + 'studentData/'), obj)
+//     //   .then(() => {
+//     //       // Data saved successfully!
+//     //   // console.log("success");
+//     //   // alert("data sent")
+//     //   // console.log(obj);
+//     //   // dispatch({
+//     //   //   type: "ADDDATATATYPE",
+//     //   //   payload: obj,
+//     //   // })
+//     //   // navigate("LoginHome",{ state: obj })
+//     // })
+//     // .catch((error) => {
+//     //     // The write failed...
+//     //     alert("error")
+//     //   });
+//   }
+// }
 let signup = (dispatch, navigate, obj) => {
   console.log(obj);
   createUserWithEmailAndPassword(auth, obj.email, obj.password)
   .then((userCredential) => {
     // Signed in 
-    const user = userCredential.user;
-    console.log(user.uid);
-    let newobj={...obj,...user}
+    const user = userCredential.user.uid;
+    // console.log(user.uid);
+    let newobj={...obj,user}
+    console.log(newobj);
     const db = getDatabase();
-    set(ref(db, 'authentication/' + newobj.uid), {
+    set(ref(db, "authentication/"+ newobj.user), {
       newobj
     })
-    // .then((res) => {
-    //   console.log(res)
-    //   // dispatch({
-    //   //   type: "STUDENTAUTHENTICATION",
-    //   //   ...obj,
-    //   // })
-    // })
-    // dispatch({
-    //   type: "SIGNUP",
-    //   payload: newobj,
-    // })
+    const dbRef = ref(getDatabase());
+      get(child(dbRef, `authentication/${newobj.user}/newobj`)).then((snapshot) => {
+        // if (snapshot.exists()) {
+          console.log(snapshot.val());
+          let uidData= {...snapshot.val()}
+          // console.log(uiddata);
+          if(uidData?.type?.type==="user"){
+            navigate("/loginhome2")
+          }
+          else if(uidData?.type?.type==="company"){
+            navigate("/companyHome2")
+          }
+        // }
+        dispatch({
+          type: "USERUIDDATA",
+          payload: uidData,
+        })
+        // setUserLogin(true);
+        // setUserData(location.state);
+        // getData();
+      })
+      dispatch({
+        type: "SIGNUP",
+        payload: newobj,
+      })
     console.log(obj);
       // alert("Success")
-      navigate("/home2")
-      // ...
+      navigate("/loginhome2")
       console.log(newobj);
     })
     .catch((error) => {
@@ -109,33 +139,86 @@ let signup = (dispatch, navigate, obj) => {
       console.log("errorMessage" + errorMessage);
       // ..
     });
+  // })
 }
-// let useruid = (setLoader, dispatch) => {
-//   setLoader(true);
-//   onAuthStateChanged(auth, (user) => {
-//     if (user) {
-//       const uid = user.uid;
-//       console.log(uid);
-//       const dbRef = ref(getDatabase());
-//       get(child(dbRef, `authentication/${uid}/newobj`)).then((snapshot) => {
-//         // if (snapshot.exists()) {
-//           console.log(snapshot.val());
-//           let uidData= {...snapshot.val()}
-//         // }
-//         dispatch({
-//           type: "USERUIDDATA",
-//           payload: uidData,
-//         })
-//         // setUserLogin(true);
-//         // setUserData(location.state);
-//         // getData();
-//       })
-//       setLoader(false);
-//     } else {
-//       console.log("error")
-//     }
-//   });
+// let companylogin = (obj, navigate, dispatch) => {
+//   signInWithEmailAndPassword(auth, obj.email, obj.password)
+//     .then((userCredential) => {
+//       // Signed in 
+//       const user = userCredential.user;
+//       console.log(user.uid);
+//       // dispatch({
+//       //   type: "LOGIN",
+//       //   payload: user.uid,
+//       // })
+//       // window.location.href = "/home2"
+//       navigate("/companyHome2")
+//       // ...
+//     })
+//     .catch((error) => {
+//       const errorCode = error.code;
+//       const errorMessage = error.message;
+//       alert("error" + errorMessage)
+//     });
 // }
+let uiddata = (setLoader, dispatch,navigate) => {
+  setLoader(true);
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      const uid = user.uid;
+      console.log(uid);
+      // if(uid===auth.currentUser.uid){
+      const dbRef = ref(getDatabase());
+      get(child(dbRef, `authentication/${uid}/newobj`)).then((snapshot) => {
+        if (snapshot.exists()) {
+          console.log(snapshot.val());
+          let uidData= {...snapshot.val()}
+
+
+          // if(uidData?.type?.type==="user"){
+          //   navigate("/loginhome2")
+          // }
+          // else if(uidData?.type?.type==="company"){
+          //   navigate("/companyHome2")
+          // }
+          dispatch({
+            type: "USERUIDDATA",
+            payload: uidData,
+          })
+          // console.log(uiddata);
+        }
+      
+      })
+      setLoader(false);
+    } else {
+      console.log("error")
+      navigate("/")
+    }
+  });
+}
+
+let addpostdata = (dispatch,navigate,state) => {
+      const dbRef = ref(getDatabase());
+      get(child(dbRef, `studentData/${state.uiddata.userid.user}`)).then((snapshot) => {
+        // if (snapshot.exists()) {
+          console.log(snapshot.val());
+          let newobj= {...snapshot.val()}
+          console.log(newobj);
+          // navigate({state:newobj})
+        // }
+        // dispatch({
+        //   type: "USERUIDDATA",
+        //   payload: uidData,
+        // })
+        // setUserLogin(true);
+        // setUserData(location.state);
+        // getData();
+      // setLoader(false);
+      // else {
+      //   console.log("error")
+      // }
+      })
+    } 
 // const addData = (obj,dispatch,navigate) => {
 //   let refrence = ref(db, "users/");
 //   let arr = [];
@@ -150,15 +233,14 @@ let signup = (dispatch, navigate, obj) => {
 //     }
 //   });
 // };
-let addData = (obj, navigate, dispatch) => {
+let addData = (obj, dispatch, navigate) => {
   console.log(obj);
   return dispatch => {
     const db = getDatabase();
-    set(ref(db, 'studentData/' + obj.uid), obj).then(() => {
-
+    set(ref(db, `studentData/${obj.uid}`), obj).then(() => {
       dispatch({
         type: "ADDDATATATYPE",
-        ...obj,
+        payload:obj,
       })
     })
     // navigate({ state: obj })
@@ -181,13 +263,51 @@ let addData = (obj, navigate, dispatch) => {
     //   });
   }
 }
-let signout=(navigate)=>{
+
+let addCompanyData=(obj, dispatch, navigate)=>{
+  console.log(obj);
+  const db = getDatabase();
+  set(ref(db, 'companyData/' + obj.uid), obj).then(() => {
+    // dispatch({
+    //   type: "ADDDATATATYPE",
+    //   ...obj,
+    // })
+  })
+  // navigate({ state: obj })
+  console.log(obj);
+  // push(ref(db, + 'studentData/'), obj)
+  //   .then(() => {
+  //       // Data saved successfully!
+  //   // console.log("success");
+  //   // alert("data sent")
+  //   // console.log(obj);
+  //   // dispatch({
+  //   //   type: "ADDDATATATYPE",
+  //   //   payload: obj,
+  //   // })
+  //   // navigate("LoginHome",{ state: obj })
+  // })
+  // .catch((error) => {
+  //     // The write failed...
+  //     alert("error")
+  //   });
+
+}
+let signout=(navigate,dispatch)=>{
 signOut(auth).then(() => {
   console.log("Sign-out successful");
-
   navigate("/")
 }).catch((error) => {
+
   console.log("An error happened.");
 });
 }
-export { login, signup,  addData,signout,authentication }
+export { login, 
+  signup,  
+  addData,
+  signout,
+  // authentication,
+  uiddata,
+  addpostdata,
+  addCompanyData
+}

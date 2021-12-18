@@ -7,19 +7,33 @@ export default function CompanyHiring() {
     const [address, setAddress] = useState();
     const [contact, setContact] = useState();
     const [image, setImage] = useState();
+
+    const HandleChange = (e) => {
+        let reader = new FileReader();
+        reader.onload = () => {
+            if (reader.readyState == 2)
+                setImage(reader.result);
+        };
+        // firebase.database().ref('UserData').push(object)
+        reader.readAsDataURL(e.target.files[0]);
+    }
     return (
-        <div>
-            <>
-                <CompanyHome />
+        <CompanyHome>
+            <div>
                 <div className="Data">
                     <div className="dataParent">
                         <form className="dataForm">
                             <h4 className="DataH4EnterData">Enter Data</h4>
                             <div className="DataDiv">
-                                <div className="DataField">
-                                    <label className="DataLabel">Image</label>
-                                    <input className="DataImg" type="file" required onChange={(e) => setImage(e.target.value)} />
-                                </div>
+                                {/* <div className="setEmail">
+                                    <label className="EmailLabel">Image</label>
+                                    <input
+                                        onChange={HandleChange}
+                                        type="file"
+                                        className="enterEmail2"
+                                        placeholder='enter your Image'
+                                    />
+                                </div> */}
                                 <div className="DataField">
                                     <label className="DataLabel">Company Name</label>
                                     <input className="dataInputBar" required type="text" onChange={(e) => setUserName(e.target.value)} />
@@ -42,7 +56,8 @@ export default function CompanyHiring() {
                         </form>
                     </div>
                 </div>
-            </>
-        </div>
+            </div>
+        </CompanyHome>
+
     )
 }

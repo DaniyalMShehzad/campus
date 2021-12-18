@@ -1,6 +1,6 @@
 import Navbar from '../containers/dashboard/home/loginpage/navbar';
-import Admin from '../containers/dashboard/home/loginpage/navbar/login/admin';
-import Company from '../containers/dashboard/home/loginpage/navbar/login/company';
+import Companysignup from '../containers/dashboard/home/loginpage/navbar/login/companysignup';
+import CompanyLogin from '../containers/dashboard/home/loginpage/navbar/login/companylogin';
 import Login from '../containers/dashboard/home/loginpage/navbar/login/login';
 import SignUp from '../containers/dashboard/home/loginpage/navbar/login/signup';
 import Data from '../containers/dashboard/home/screens/data/data';
@@ -18,4 +18,4 @@ import Hiringdata from '../containers/screens3/adminhiring/hiringdata';
 import AdimnHome from '../containers/screens3/adminhome';
 import AdminCompanyData from '../containers/screens3/companydata/companydata';
 import AdminStudentData from '../containers/screens3/studentdata/studentdata';
-export {Navbar,Admin,Company,Login,SignUp,Data,Home,Home2,Post,CompanyHome,CompanyData,CompanyHiring,Hiring,CompanyHome2,Notification,CompanyAccount,AdminStudentData,AdminCompanyData,AdimnHome,Hiringdata}
+export {Navbar,Companysignup,CompanyLogin,Login,SignUp,Data,Home,Home2,Post,CompanyHome,CompanyData,CompanyHiring,Hiring,CompanyHome2,Notification,CompanyAccount,AdminStudentData,AdminCompanyData,AdimnHome,Hiringdata}

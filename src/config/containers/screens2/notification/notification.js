@@ -98,7 +98,7 @@ export default function Notification() {
     ]
     return (
         <>
-            <CompanyHome />
+            <CompanyHome >
             <div className="Home2">
                 <div className="homeParent2">
                     {arr.map((e, i) => {
@@ -115,6 +115,7 @@ export default function Notification() {
                     })}
                 </div>
             </div>
+            </CompanyHome >
         </>
     )
 }

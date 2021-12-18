@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router'
 import { Link, NavLink } from "react-router-dom";
 import Navbar from '../../navbar';
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { login } from '../../../../../../firebaseconfig/firebaseconfig';
 import { Input, Space } from 'antd';
 import { EyeInvisibleOutlined, EyeTwoTone } from '@ant-design/icons';
@@ -11,7 +11,8 @@ export default function Login() {
     const [email, setEmail] = useState()
     const [password, setPassowrd] = useState()
 
-
+//     const state= useSelector((e)=>e)
+// console.log(state);
     const navigate = useNavigate()
     const dispatch=useDispatch()
 const signIn = (e) => {

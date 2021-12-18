@@ -17,39 +17,49 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import { useState } from 'react';
 import { useNavigate } from 'react-router';
+import { useDispatch, useSelector } from 'react-redux';
+import { signout, uiddata,  } from '../../firebaseconfig/firebaseconfig';
+import { useEffect } from 'react';
 const drawerWidth = 240;
 
 export default function CompanyHome(props) {
   const { window } = props;
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [loader, setLoader] = useState(false);
   const navigate =useNavigate()
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
-
+  const dispatch=useDispatch()
+  // const dispatch=useDispatch()
+  useEffect(() => {
+    dispatch((dispatch)=>uiddata(setLoader,dispatch,navigate))
+}, []);
+const logout=()=>{
+  dispatch(()=>signout(navigate,dispatch))
+}
+const state=useSelector((e)=>e)
+// console.log(state);
+// console.log(state.uiddata.userid.type.type);
   // useEffect(()=>{
   //   const firstData = window().location.pathname.split("/")
   // },[])                
-
   // console.log(firstData);
   const drawer = (
     <div>
       <Toolbar />
       <Divider />
       <List>
-        {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-          <ListItem button key={text}>
-            <ListItemIcon>
-              {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-            </ListItemIcon>
-            <ListItemText primary={text} />
-          </ListItem>
-        ))}
+      <div className="stateuiddata">
+              {/* <h5>{state.uiddata2reducer2.userid.username}</h5>
+              <h5>{state.uiddata2reducer2.userid.email}</h5> */}
+              <button onClick={()=>logout()}>signout</button>
+              </div>
       </List>
       <Divider />
-      <List>
+      <List> n 
         {['Home', 'Account', 'Data',"Hireforjob",'Notification',].map((text, index) => (
-          <ListItem button key={text} onClick={()=>navigate(`/company${text}`,)}>
+          <ListItem button key={text} onClick={()=>navigate(`/company${text}2`,)}>
             <ListItemIcon>
               {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
             </ListItemIcon>
@@ -59,11 +69,16 @@ export default function CompanyHome(props) {
       </List>
     </div>
   );
-
   const container = window !== undefined ? () => window().document.body : undefined;
 
   return (
-    <Box sx={{ display: 'flex' }}>
+    <>
+    {
+      (state?.uiddata?.userid?.type?.type==="user")?
+      null
+      :
+      (state?.uiddata?.userid?.type?.type==="company")?
+<Box sx={{ display: 'flex' }}>
       <CssBaseline />
       <AppBar
         position="fixed"
@@ -128,6 +143,10 @@ export default function CompanyHome(props) {
         </Typography>
       </Box>
     </Box>
+    :
+    null
+    }
+        </>
   );
 }
 

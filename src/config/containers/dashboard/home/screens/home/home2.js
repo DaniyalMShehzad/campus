@@ -4,58 +4,58 @@ import Home from '../home'
 export default function Home2() {
     const arr = [
         {
-            img:"https://www.pixsy.com/wp-content/uploads/2021/04/ben-sweet-2LowviVHZ-E-unsplash-1.jpeg",
+            img: "https://www.pixsy.com/wp-content/uploads/2021/04/ben-sweet-2LowviVHZ-E-unsplash-1.jpeg",
             companyName: "company",
             business: "software",
             discpriton: "hsjhjhajkhhkdhjhfjahjf",
             address: "dafdfddddddddddddddddd",
         },
         {
-            img:"https://www.pixsy.com/wp-content/uploads/2021/04/ben-sweet-2LowviVHZ-E-unsplash-1.jpeg",
+            img: "https://www.pixsy.com/wp-content/uploads/2021/04/ben-sweet-2LowviVHZ-E-unsplash-1.jpeg",
             companyName: "company",
             business: "software",
             discpriton: "hsjhjhajkhhkdhjhfjahjf",
             address: "dafdfddddddddddddddddd",
         }, {
-            img:"https://www.pixsy.com/wp-content/uploads/2021/04/ben-sweet-2LowviVHZ-E-unsplash-1.jpeg",
+            img: "https://www.pixsy.com/wp-content/uploads/2021/04/ben-sweet-2LowviVHZ-E-unsplash-1.jpeg",
             companyName: "company",
             business: "software",
             discpriton: "hsjhjhajkhhkdhjhfjahjf",
             address: "dafdfddddddddddddddddd",
         }, {
-            img:"https://www.pixsy.com/wp-content/uploads/2021/04/ben-sweet-2LowviVHZ-E-unsplash-1.jpeg",
+            img: "https://www.pixsy.com/wp-content/uploads/2021/04/ben-sweet-2LowviVHZ-E-unsplash-1.jpeg",
             companyName: "company",
             business: "software",
             discpriton: "hsjhjhajkhhkdhjhfjahjf",
             address: "dafdfddddddddddddddddd",
         }, {
-            img:"https://www.pixsy.com/wp-content/uploads/2021/04/ben-sweet-2LowviVHZ-E-unsplash-1.jpeg",
+            img: "https://www.pixsy.com/wp-content/uploads/2021/04/ben-sweet-2LowviVHZ-E-unsplash-1.jpeg",
             companyName: "company",
             business: "software",
             discpriton: "hsjhjhajkhhkdhjhfjahjf",
             address: "dafdfddddddddddddddddd",
         }, {
-            img:"https://www.pixsy.com/wp-content/uploads/2021/04/ben-sweet-2LowviVHZ-E-unsplash-1.jpeg",
+            img: "https://www.pixsy.com/wp-content/uploads/2021/04/ben-sweet-2LowviVHZ-E-unsplash-1.jpeg",
             companyName: "company",
             business: "software",
             discpriton: "hsjhjhajkhhkdhjhfjahjf",
             address: "dafdfddddddddddddddddd",
         }, {
-            img:"https://www.pixsy.com/wp-content/uploads/2021/04/ben-sweet-2LowviVHZ-E-unsplash-1.jpeg",
+            img: "https://www.pixsy.com/wp-content/uploads/2021/04/ben-sweet-2LowviVHZ-E-unsplash-1.jpeg",
             companyName: "company",
             business: "software",
             discpriton: "hsjhjhajkhhkdhjhfjahjf",
             address: "dafdfddddddddddddddddd",
         },
         {
-            img:"https://www.pixsy.com/wp-content/uploads/2021/04/ben-sweet-2LowviVHZ-E-unsplash-1.jpeg",
+            img: "https://www.pixsy.com/wp-content/uploads/2021/04/ben-sweet-2LowviVHZ-E-unsplash-1.jpeg",
             companyName: "company",
             business: "software",
             discpriton: "hsjhjhajkhhkdhjhfjahjf",
             address: "dafdfddddddddddddddddd",
         },
         {
-            img:"https://www.pixsy.com/wp-content/uploads/2021/04/ben-sweet-2LowviVHZ-E-unsplash-1.jpeg",
+            img: "https://www.pixsy.com/wp-content/uploads/2021/04/ben-sweet-2LowviVHZ-E-unsplash-1.jpeg",
             companyName: "company",
             business: "software",
             discpriton: "hsjhjhajkhhkdhjhfjahjf",
@@ -63,12 +63,13 @@ export default function Home2() {
         },
     ]
     return (
-        <div>
-            <>
-                <Home />
+
+        <>
+            <Home>
                 <div className="Home2">
                     <div className="homeParent2">
                         {arr.map((e, i) => {
+                            console.log("heklhjeklj")
                             return (
                                 <div key={i} className="HomeCards">
                                     <img className="Companyimg" src={e.img} />
@@ -81,7 +82,7 @@ export default function Home2() {
                         })}
                     </div>
                 </div>
-            </>
-        </div>
+            </Home>
+        </>
     )
 }

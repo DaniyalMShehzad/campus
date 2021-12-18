@@ -1,52 +1,63 @@
 import React from 'react'
+// import { useSelector } from 'react-redux';
 import {
   BrowserRouter as Router,
   Routes,
   Route,
   Link
 } from "react-router-dom";
-import { Admin,Company,Login,SignUp,Data,Home,Home2,Post,CompanyHome,CompanyData,CompanyHiring,CompanyHome2,Notification,CompanyAccount,AdminStudentData,AdminCompanyData,AdimnHome,Hiringdata } from './routing';
+import {
+  Admin, Company, Login, SignUp, Data, Home, Home2, Post, CompanyHome, CompanyData, CompanyHiring, CompanyHome2, Notification
+  , CompanyAccount, AdminStudentData, AdminCompanyData, AdimnHome, Hiringdata, CompanyLogin, Companysignup,
+} from './routing';
 export default function Routing() {
-    return (
-      <Router>
-        <div>
-          <Routes>
-            <Route path="/" element={<Login />} />
-            <Route path="/signup" element={<SignUp />} />
-            <Route path="/admin" element={<Admin />} />
-            <Route path="/company" element={<Company />} />
-          </Routes>
-          {window.location.pathname === "/" || window.location.pathname === "/signup" || window.location.pathname === "/admin" || window.location.pathname === "/company" ?
-            <>
-            </>
-            :
-            <>
-              <Home >
-                <Routes>
-                  <Route path="/LoginHome" element={<Home2 />} />
-                  <Route path="/LoginPost" element={<Post />} />
-                  <Route path="/Logindata" element={<Data />} />
-                </Routes>
-              </Home>
-            </>
-          }
-          {/* {window.location.pathname === "/" || window.location.pathname === "/signup" || window.location.pathname === "/admin" || window.location.pathname === "/company" ?
-            <>
-            </>
-            :
-            <>
-              <CompanyHome>
-                <Routes>
-                  <Route path="/companyhome" element={<CompanyHome2 />} />
-                  <Route path="/companyaccount" element={<CompanyAccount />} />
-                  <Route path="/companydata" element={<CompanyData />} />
-                  <Route path="/companyhireforjob" element={<CompanyHiring />} />
-                  <Route path="/companynotification" element={<Notification />} />
-                </Routes>
-              </CompanyHome>
-            </>
-          } */}
-          {/* {window.location.pathname === "/" || window.location.pathname === "/signup" || window.location.pathname === "/admin" || window.location.pathname === "/company" ?
+  return (
+    <Router>
+      <div>
+
+        <Routes>
+          <Route exact path="/" element={<Login />} />
+          <Route exact path="/signup" element={<SignUp />} />
+          <Route exact path="/companylogin" element={<CompanyLogin />} />
+          <Route exact path="/companysignup" element={<Companysignup />} />
+          {/* <Route path="/companylogin" element={<companyLogin />} /> */}
+          <Route exact path="/loginhome2" element={<Home2 />} />
+          <Route exact path="/loginPost2" element={<Post />} />
+          <Route exact path="/logindata2" element={<Data />} />
+          <Route exact path="/companyHome2" element={<CompanyHome2 />} />
+          <Route exact path="/companyAccount2" element={<CompanyAccount />} />
+          <Route exact path="/companyData2" element={<CompanyData />} />
+          <Route exact path="/companyHireforjob2" element={<CompanyHiring />} />
+          <Route exact path="/companyNotification2" element={<Notification />} />
+        </Routes>
+        {/* {window.location.pathname === "/" || window.location.pathname === "/signup" || window.location.pathname === "/admin" || window.location.pathname === "/company" || window.location.pathname === "/companylogin" ?
+          <>
+          </>
+          :
+            <> */}
+        <Routes>
+
+        </Routes>
+        {/* </>
+        } */}
+        {window.location.pathname === "/" || window.location.pathname === "/signup" || window.location.pathname === "/admin" || window.location.pathname === "/company" || window.location.pathname === "/companylogin" ?
+          <>
+          </>
+          :
+          <>
+            {/* <CompanyHome>
+              <Routes>
+                <Route exact path="/companyHome2" element={<CompanyHome2 />} />
+                <Route exact path="/companyAccount2" element={<CompanyAccount />} />
+                <Route exact path="/companyData2" element={<CompanyData />} />
+                <Route exact path="/companyHireforjob2" element={<CompanyHiring />} />
+                <Route exact path="/companyNotification2" element={<Notification />} />
+              </Routes>
+            </CompanyHome> */}
+          </>
+
+        }
+        {/* {window.location.pathname === "/" || window.location.pathname === "/signup" || window.location.pathname === "/admin" || window.location.pathname === "/company||window.location.pathname === "/companylogin" " ?
             <>
             </>
             :
@@ -63,9 +74,9 @@ export default function Routing() {
               </AdimnHome>
             </>
           } */}
-          {/* <Route path="/signup" element={<SignUp />} /> */}
-  
-        </div>
-      </Router>
-    );
-  }
+        {/* <Route path="/signup" element={<SignUp />} /> */}
+
+      </div>
+    </Router>
+  );
+}

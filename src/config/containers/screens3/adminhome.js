@@ -17,7 +17,7 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import { useState } from 'react';
 import { useNavigate } from 'react-router';
-import Admin from '../dashboard/home/loginpage/navbar/login/admin';
+import Admin from '../dashboard/home/loginpage/navbar/login/companylogin';
 const drawerWidth = 240;
 
 export default function AdimnHome(props) {

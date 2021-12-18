@@ -18,9 +18,10 @@ import Typography from '@mui/material/Typography';
 import { useState,useEffect } from 'react';
 import { useNavigate } from 'react-router';
 import Home2 from './home/home2';
-import { useDispatch } from 'react-redux';
-import uiddata from '../../../../firebaseconfig/reducers/uiddata';
-import { signout } from '../../../../firebaseconfig/firebaseconfig';
+import { useDispatch, useSelector } from 'react-redux';
+import { signout, uiddata } from '../../../../firebaseconfig/firebaseconfig';
+import { ConstructionOutlined } from '@mui/icons-material';
+
 const drawerWidth = 240;
 
 export default function Home(props) {
@@ -31,41 +32,40 @@ export default function Home(props) {
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
-const dispatch=useDispatch()
-//   useEffect(() => {
-//     dispatch((dispatch)=>uiddata(setLoader,dispatch))
-// }, []);
-console.log(loader);
-
-
-
-const logout=()=>{
-  dispatch(()=>signout(navigate))
-}
+  const dispatch=useDispatch()
+  const [data,setData] = useState({})
+  const state = useSelector((e)=>e)
+  useEffect(() => {
+    dispatch((dispatch)=>uiddata(setLoader,dispatch,navigate))
+  }, []);
+  // console.log(loader);
+  const logout=()=>{
+    dispatch((dispatch)=>signout(navigate,dispatch))
+  }
+  useEffect(()=>{
+    setData(state)
+    console.log(data)
+  },[state])
   // useEffect                
   // const firstData = window().location.pathname.split("/")
-
+  
   // console.log(firstData);
   const drawer = (
     <>
     <div>
       <Toolbar />
       <Divider />
-      <List>
         {/* {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => ( */}
-          <ListItem>
-            <ListItemIcon>
-              {/* {index % 2 === 0 ? <InboxIcon /> : <MailIcon />} */}
+            <div className="stateuiddata">
+              <h5>{data?.uiddata?.userid?.username}</h5>
+              <h5>{data?.uiddata?.userid?.email}</h5>
               <button onClick={()=>logout()}>signout</button>
-            </ListItemIcon>
-            <ListItemText/>
-          </ListItem>
+              </div>
         {/* ))} */}
-      </List>
       <Divider />
       <List>
         {['Home', 'Post', 'data'].map((text, index) => (
-          <ListItem button key={text} onClick={()=>navigate(`/login${text}`,)}>
+          <ListItem button key={text} onClick={()=>navigate(`/login${text}2`,)}>
             <ListItemIcon>
               {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
             </ListItemIcon>
@@ -78,8 +78,15 @@ const logout=()=>{
   );
 
   const container = window !== undefined ? () => window().document.body : undefined;
-
+  
   return (
+    <>
+    {console.log(data)}
+    {/* {
+    (data?.uiddata?.userid?.type?.type==="Company")?
+    null
+    :
+    data?.uiddata?.userid?.type?.type==="user"? */}
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
       <AppBar
@@ -145,6 +152,10 @@ const logout=()=>{
         </div>
       </Box>
     </Box>
+    {/* :
+    null
+      } */}
+    </>
   );
 }
 
