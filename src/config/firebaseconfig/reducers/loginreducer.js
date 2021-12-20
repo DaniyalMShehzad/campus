@@ -5,7 +5,7 @@ const INITIAL_STATE = {
   
   export default (state = INITIAL_STATE, action) => {
     switch (action.type) {
-      case "LOGIN":
+      case "USERS":
         console.log(action.payload);
         state.userid = action.payload;
         return state;

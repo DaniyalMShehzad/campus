@@ -59,7 +59,7 @@ const state=useSelector((e)=>e)
       <Divider />
       <List> n 
         {['Home', 'Account', 'Data',"Hireforjob",'Notification',].map((text, index) => (
-          <ListItem button key={text} onClick={()=>navigate(`/company${text}2`,)}>
+          <ListItem button key={text} onClick={()=>navigate(`/company${text}2`)}>
             <ListItemIcon>
               {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
             </ListItemIcon>
@@ -73,11 +73,11 @@ const state=useSelector((e)=>e)
 
   return (
     <>
-    {
+    {/* {
       (state?.uiddata?.userid?.type?.type==="user")?
       null
       :
-      (state?.uiddata?.userid?.type?.type==="company")?
+      (state?.uiddata?.userid?.type?.type==="company")? */}
 <Box sx={{ display: 'flex' }}>
       <CssBaseline />
       <AppBar
@@ -138,14 +138,14 @@ const state=useSelector((e)=>e)
         sx={{ flexGrow: 1, p: 3, width: { sm: `calc(100% - ${drawerWidth}px)` } }}
       >
         <Toolbar />
-        <Typography >
+        <div >
           {props.children}
-        </Typography>
+        </div>
       </Box>
     </Box>
-    :
-    null
-    }
+    {/* // :
+    // null
+    // } */}
         </>
   );
 }

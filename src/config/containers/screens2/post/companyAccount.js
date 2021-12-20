@@ -1,81 +1,50 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { useNavigate } from 'react-router'
+import { authentication } from '../../../firebaseconfig/firebaseconfig'
 import CompanyHome from '../companyHome'
+import { Table } from 'antd';
+
+
 
 export default function CompanyAccount() {
-    const arr = [
-        {
-            img: "https://www.pixsy.com/wp-content/uploads/2021/04/ben-sweet-2LowviVHZ-E-unsplash-1.jpeg",
-            companyName: "company",
-            business: "software",
-            discpriton: "Hire for Job",
-            address: "dafdfddddddddddddddddd",
-            Button: "add",
-        },
-        {
-            img: "https://www.pixsy.com/wp-content/uploads/2021/04/ben-sweet-2LowviVHZ-E-unsplash-1.jpeg",
-            companyName: "company",
-            business: "software",
-            discpriton: "Hire for Job",
-            address: "dafdfddddddddddddddddd",
-            Button: "add",
-        }, {
-            img: "https://www.pixsy.com/wp-content/uploads/2021/04/ben-sweet-2LowviVHZ-E-unsplash-1.jpeg",
-            companyName: "company",
-            business: "software",
-            discpriton: "Hire for Job",
-            address: "dafdfddddddddddddddddd",
-            Button: "add",
-        }, {
-            img: "https://www.pixsy.com/wp-content/uploads/2021/04/ben-sweet-2LowviVHZ-E-unsplash-1.jpeg",
-            companyName: "company",
-            business: "software",
-            discpriton: "Hire for Job",
-            address: "dafdfddddddddddddddddd",
-            Button: "add",
-        }, {
-            img: "https://www.pixsy.com/wp-content/uploads/2021/04/ben-sweet-2LowviVHZ-E-unsplash-1.jpeg",
-            companyName: "company",
-            business: "software",
-            discpriton: "Hire for Job",
-            address: "dafdfddddddddddddddddd",
-            Button: "add",
-        }, {
-            img: "https://www.pixsy.com/wp-content/uploads/2021/04/ben-sweet-2LowviVHZ-E-unsplash-1.jpeg",
-            companyName: "company",
-            business: "software",
-            discpriton: "Hire for Job",
-            address: "dafdfddddddddddddddddd",
-            Button: "add",
-        }, {
-            img: "https://www.pixsy.com/wp-content/uploads/2021/04/ben-sweet-2LowviVHZ-E-unsplash-1.jpeg",
-            companyName: "company",
-            business: "software",
-            discpriton: "Hire for Job",
-            address: "dafdfddddddddddddddddd",
-            Button: "add",
-        },
-        {
-            img: "https://www.pixsy.com/wp-content/uploads/2021/04/ben-sweet-2LowviVHZ-E-unsplash-1.jpeg",
-            companyName: "company",
-            business: "software",
-            discpriton: "Hire for Job",
-            address: "dafdfddddddddddddddddd",
-            Button: "add",
-        },
-        {
-            img: "https://www.pixsy.com/wp-content/uploads/2021/04/ben-sweet-2LowviVHZ-E-unsplash-1.jpeg",
-            companyName: "company",
-            business: "software",
-            discpriton: "Hire for Job",
-            address: "dafdfddddddddddddddddd",
-            Button: "add",
-        },
-    ]
+    const [data,setData]=useState()
+    const dispatch=useDispatch()
+    const navigate=useNavigate()
+    const state=useSelector((e)=>e)
+    console.log(Object.values(state.loginreducer.userid));
+    useEffect(()=>{
+        setData(Object.values(state?.loginreducer?.userid))
+        dispatch((dispatch)=> authentication(dispatch,state))
+    },[])
+    // console.log(data);
     return (
         <>
         <CompanyHome>
             <div className="account">
-                <h2>account</h2>
+            <table className='adminUser2'>
+                    <tr className='admintr'>
+                        <th className='adminthead'>Name</th>
+                        <th className='adminthead'>Email</th>
+                        {/* <th className='adminthead'>type</th> */}
+                        {/* <th className='adminthead'>Delete</th> */}
+                    </tr>
+                {data?.map((e,i)=>{
+                    // console.log(e.newobj);
+                    return  e?.newobj?.type?.type==="user"? (
+                        <>
+                        <tr className="admintr2">
+                            <td className="admintd">{e.newobj.username}</td>
+                            <td className="admintd">{e.newobj.email}</td>
+                            <td>{}</td>
+                        </tr>
+                        </>
+                   )
+                   :
+                       <>
+                       </>
+                })}
+                </table>
             </div>
             </CompanyHome >
         </>

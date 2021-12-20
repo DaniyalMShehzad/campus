@@ -196,52 +196,95 @@ let uiddata = (setLoader, dispatch,navigate) => {
     }
   });
 }
+const companyPostData=(dispatch,state)=>{
+  const dbRef = ref(getDatabase());
+  get(child(dbRef, `companyPostData/`)).then((snapshot) => {
+    if (snapshot.exists()) {
+      console.log(snapshot.val());
+      let newobj= {...snapshot.val()}
+      console.log(newobj);
+    dispatch({
+      type: "POSTS",
+      payload: newobj,
+    })
+  }
+  else{
+    console.log("no data avalible");
+  }
+  })
 
-let addpostdata = (dispatch,navigate,state) => {
+}
+let addpostdata = (dispatch,navigate,state,e) => {
       const dbRef = ref(getDatabase());
-      get(child(dbRef, `studentData/${state.uiddata.userid.user}`)).then((snapshot) => {
+      console.log(e.uid);
+      const user =auth.currentUser.uid
+      const db = getDatabase();
+      get(child(dbRef, `studentData/${user}`)).then((snapshot) => {
+        if (snapshot.exists()) {
+          let uid2={id:e.uid}
+          console.log(uid2);
+          console.log(snapshot.val());
+          let newobj= {...snapshot.val(),uid2}
+          const newPostKey = push(child(ref(db), 'posts')).key;
+          console.log(newPostKey);
+          set(ref(db, `studentscv/${newPostKey}/${newobj.uid2.id}`), newobj).then(() => {
+            navigate({data:newobj})   
+          })
+        }else{
+          console.log("no data avalible");
+          
+        }
+      })
+    } 
+const authentication = (dispatch,state) => {
+  const dbRef = ref(getDatabase());
+  if(state?.uiddata?.userid?.type?.type==="user"){
+    get(child(dbRef, `companyData/`)).then((snapshot) => {
+      // if (snapshot.exists()) {
+        console.log(snapshot.val());
+        let newobj= {...snapshot.val()}
+        console.log(newobj);
+        // navigate({state:newobj})
+      // }
+      dispatch({
+        type: "USERS",
+        payload: newobj,
+      })
+    })
+  }
+  else if(state?.uiddata?.userid?.type?.type==="company"){
+      get(child(dbRef, `authentication/`)).then((snapshot) => {
         // if (snapshot.exists()) {
           console.log(snapshot.val());
           let newobj= {...snapshot.val()}
           console.log(newobj);
           // navigate({state:newobj})
         // }
-        // dispatch({
-        //   type: "USERUIDDATA",
-        //   payload: uidData,
-        // })
-        // setUserLogin(true);
-        // setUserData(location.state);
-        // getData();
-      // setLoader(false);
-      // else {
-      //   console.log("error")
-      // }
+        dispatch({
+          type: "USERS",
+          payload: newobj,
+        })
       })
-    } 
-// const addData = (obj,dispatch,navigate) => {
-//   let refrence = ref(db, "users/");
-//   let arr = [];
-//   onChildAdded(refrence, (snapshot) => {
-//     if (snapshot.exists()) {
-//       arr.push(snapshot.val());
-//       setUserList([...arr]);
-//       dispatch({
-//         type:"ADDDATATATYPE",
-//         payload:obj,
-//       })
-//     }
-//   });
-// };
-let addData = (obj, dispatch, navigate) => {
+    }
+};
+let addData = (obj, dispatch, navigate,state) => {
   console.log(obj);
-  return dispatch => {
+  // return dispatch => {
     const db = getDatabase();
-    set(ref(db, `studentData/${obj.uid}`), obj).then(() => {
-      dispatch({
-        type: "ADDDATATATYPE",
-        payload:obj,
+    if(state?.uiddata?.userid?.type?.type==="user"){
+      set(ref(db, `studentData/${obj.uid}`), obj).then(() => {
       })
+    }
+    else if(state?.uiddata?.userid?.type?.type==="company"){
+      set(ref(db, `companyData/${obj.uid}`), obj).then(() => {
+      })
+    }
+    // else{
+    //   null
+    // }
+    dispatch({
+      type: "ADDDATATATYPE",
+      payload:obj,
     })
     // navigate({ state: obj })
     console.log(obj);
@@ -261,13 +304,13 @@ let addData = (obj, dispatch, navigate) => {
     //     // The write failed...
     //     alert("error")
     //   });
-  }
+  // }
 }
 
-let addCompanyData=(obj, dispatch, navigate)=>{
+let addCompanyData=(obj, dispatch, navigate,state)=>{
   console.log(obj);
   const db = getDatabase();
-  set(ref(db, 'companyData/' + obj.uid), obj).then(() => {
+  set(ref(db, 'companyPostData/' + obj.uid), obj).then(() => {
     // dispatch({
     //   type: "ADDDATATATYPE",
     //   ...obj,
@@ -306,8 +349,9 @@ export { login,
   signup,  
   addData,
   signout,
-  // authentication,
+  authentication,
   uiddata,
+  companyPostData,
   addpostdata,
   addCompanyData
 }

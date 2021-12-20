@@ -12,6 +12,7 @@ export default function Data(props) {
     const [contact, setContact] = useState();
     const [experience, setExperience] = useState();
     const [image, setImage] = useState();
+//   const [dtstate,setDtState]=useState()
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const state = useSelector((e) => e)
@@ -29,10 +30,10 @@ export default function Data(props) {
         image:image,
         uid: state.uiddata.userid.user
     }
-
+    // setDtState(state)
     const studentdataData = (e) => {
         e.preventDefault();
-        dispatch((dispatch) => addData(obj, dispatch, navigate))
+        dispatch((dispatch) => addData(obj, dispatch, navigate,state))
         // props.addData(obj, navigate)
     }
     const HandleChange = (e) => {
@@ -59,6 +60,7 @@ export default function Data(props) {
                                     type="file"
                                     className="enterEmail2"
                                     placeholder='enter your Image'
+                                    required
                                 />
                             </div>
                             {/* <div className="DataField">
