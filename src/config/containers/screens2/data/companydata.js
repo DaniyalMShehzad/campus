@@ -85,7 +85,7 @@ export default function CompanyData() {
                                         <input className="dataInputBar" required type="number" value={contact} onChange={(e) => setContact(e.target.value)} />
                                     </div>
                                 </div>
-                                <button className="DataAddData">Add Data</button>
+                                <button className="AddData">Add Data</button>
                             </form>
                         </div>
                     </div>

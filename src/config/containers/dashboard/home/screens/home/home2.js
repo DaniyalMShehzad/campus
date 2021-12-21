@@ -24,7 +24,7 @@ export default function Home2() {
                     <div className="homeParent2">
                         {data?.map((e, i) => {
                             return (
-                                <div key={i} className="Postcards">
+                                <div key={i} className="Postcards3">
                                 <img className="Postimg" src={e.image} />
                                 <h4 className="PostH4Name">{e.username}</h4>
                                 <p className="PostDescription">{e.contact}</p>

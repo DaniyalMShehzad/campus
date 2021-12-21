@@ -198,21 +198,56 @@ let uiddata = (setLoader, dispatch,navigate) => {
 }
 const companyPostData=(dispatch,state)=>{
   const dbRef = ref(getDatabase());
-  get(child(dbRef, `companyPostData/`)).then((snapshot) => {
+  if(state?.uiddata?.userid?.type?.type==="user"){
+    get(child(dbRef, `companyPostData/`)).then((snapshot) => {
+      if (snapshot.exists()) {
+        console.log(snapshot.val());
+        let newobj= {...snapshot.val()}
+        console.log(newobj);
+        dispatch({
+          type: "POSTS",
+          payload: newobj,
+        })
+      }
+      else{
+        console.log("no data avalible");
+      }
+    })
+  }
+  else if(state?.uiddata?.userid?.type?.type==="company"){
+    get(child(dbRef, `studentscv/`)).then((snapshot) => {
+      if (snapshot.exists()) {
+        console.log(snapshot.val());
+        let newobj= {...snapshot.val()}
+        console.log(newobj);
+        dispatch({
+          type: "POSTS",
+          payload: newobj,
+        })
+      }
+      else{
+        console.log("no data avalible");
+      }
+    })
+  }
+
+}
+const getCompanyData = (dispatch)=>{
+  const dbRef = ref(getDatabase());
+  get(child(dbRef, `studentData/`)).then((snapshot) => {
     if (snapshot.exists()) {
       console.log(snapshot.val());
       let newobj= {...snapshot.val()}
       console.log(newobj);
-    dispatch({
-      type: "POSTS",
-      payload: newobj,
-    })
-  }
-  else{
-    console.log("no data avalible");
-  }
-  })
-
+      dispatch({
+        type: "ADDDATATATYPE",
+        payload: newobj,
+      })
+    }
+    else{
+  console.log("no data avalible");
+}
+})
 }
 let addpostdata = (dispatch,navigate,state,e) => {
       const dbRef = ref(getDatabase());
@@ -227,12 +262,11 @@ let addpostdata = (dispatch,navigate,state,e) => {
           let newobj= {...snapshot.val(),uid2}
           const newPostKey = push(child(ref(db), 'posts')).key;
           console.log(newPostKey);
-          set(ref(db, `studentscv/${newPostKey}/${newobj.uid2.id}`), newobj).then(() => {
+          set(ref(db, `studentscv/${newPostKey}`), newobj).then(() => {
             navigate({data:newobj})   
           })
         }else{
           console.log("no data avalible");
-          
         }
       })
     } 
@@ -345,6 +379,13 @@ signOut(auth).then(() => {
   console.log("An error happened.");
 });
 }
+const acceptData=(dispatch,accept,data,usersuid)=>{
+  // console.log(data);
+  let obj={}
+  obj=data.filter((a,i)=>a.uid===usersuid)[0] 
+  console.log({...obj,condition:accept});
+    // console.log(data);
+}
 export { login, 
   signup,  
   addData,
@@ -353,5 +394,7 @@ export { login,
   uiddata,
   companyPostData,
   addpostdata,
-  addCompanyData
+  addCompanyData,
+  getCompanyData,
+  acceptData
 }

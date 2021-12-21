@@ -18,4 +18,5 @@ import Hiringdata from '../containers/screens3/adminhiring/hiringdata';
 import AdimnHome from '../containers/screens3/adminhome';
 import AdminCompanyData from '../containers/screens3/companydata/companydata';
 import AdminStudentData from '../containers/screens3/studentdata/studentdata';
-export {Navbar,Companysignup,CompanyLogin,Login,SignUp,Data,Home,Home2,Post,CompanyHome,CompanyData,CompanyHiring,Hiring,CompanyHome2,Notification,CompanyAccount,AdminStudentData,AdminCompanyData,AdimnHome,Hiringdata}
+import UsersCv from '../containers/screens2/notification/userscv';
+export {Navbar,UsersCv,Companysignup,CompanyLogin,Login,SignUp,Data,Home,Home2,Post,CompanyHome,CompanyData,CompanyHiring,Hiring,CompanyHome2,Notification,CompanyAccount,AdminStudentData,AdminCompanyData,AdimnHome,Hiringdata}

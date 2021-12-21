@@ -71,7 +71,7 @@ export default function CompanyHiring() {
                                 <textarea className="DataTextBar" name="w3review" rows="4" cols="58" value={desc} onChange={(e) => setDesc(e.target.value)}> </textarea>
                             </div>
                             </div>
-                            <button className="DataAddData">Add Data</button>
+                            <button className="AddData">Add Data</button>
                         </form>
                     </div>
                 </div>

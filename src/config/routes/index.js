@@ -8,7 +8,7 @@ import {
 } from "react-router-dom";
 import {
   Admin, Company, Login, SignUp, Data, Home, Home2, Post, CompanyHome, CompanyData, CompanyHiring, CompanyHome2, Notification
-  , CompanyAccount, AdminStudentData, AdminCompanyData, AdimnHome, Hiringdata, CompanyLogin, Companysignup,
+  , CompanyAccount, AdminStudentData, AdminCompanyData, AdimnHome, Hiringdata, CompanyLogin, Companysignup, UsersCv,
 } from './routing';
 export default function Routing() {
   return (
@@ -29,6 +29,7 @@ export default function Routing() {
           <Route exact path="/companyData2" element={<CompanyData />} />
           <Route exact path="/companyHireforjob2" element={<CompanyHiring />} />
           <Route exact path="/companyNotification2" element={<Notification />} />
+          <Route path="/companyuserscv2/:uid" element={<UsersCv />} />
         </Routes>
         {/* {window.location.pathname === "/" || window.location.pathname === "/signup" || window.location.pathname === "/admin" || window.location.pathname === "/company" || window.location.pathname === "/companylogin" ?
           <>

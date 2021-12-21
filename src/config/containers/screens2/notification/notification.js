@@ -1,120 +1,51 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { useNavigate } from 'react-router'
+import { addData, companyPostData } from '../../../firebaseconfig/firebaseconfig'
 import CompanyHome from '../companyHome'
 
 export default function Notification() {
-    const arr = [
-        {
-            img: "https://www.pixsy.com/wp-content/uploads/2021/04/ben-sweet-2LowviVHZ-E-unsplash-1.jpeg",
-            Name: "Daniyal",
-            email: "D@gmail.com",
-            address: "hsjhjhajkhhkdhjhfjahjf",
-            contact: "03454545454",
-            Experinece: "dsdsdsdsdsdssdsd",
-        }, {
-            img: "https://www.pixsy.com/wp-content/uploads/2021/04/ben-sweet-2LowviVHZ-E-unsplash-1.jpeg",
-            Name: "Daniyal",
-            email: "D@gmail.com",
-            address: "hsjhjhajkhhkdhjhfjahjf",
-            contact: "03454545454",
-            Experinece: "dsdsdsdsdsdssdsd",
-        }, {
-            img: "https://www.pixsy.com/wp-content/uploads/2021/04/ben-sweet-2LowviVHZ-E-unsplash-1.jpeg",
-            Name: "Daniyal",
-            email: "D@gmail.com",
-            address: "hsjhjhajkhhkdhjhfjahjf",
-            contact: "03454545454",
-            Experinece: "dsdsdsdsdsdssdsd",
-        }, {
-            img: "https://www.pixsy.com/wp-content/uploads/2021/04/ben-sweet-2LowviVHZ-E-unsplash-1.jpeg",
-            Name: "Daniyal",
-            email: "D@gmail.com",
-            address: "hsjhjhajkhhkdhjhfjahjf",
-            contact: "03454545454",
-            Experinece: "dsdsdsdsdsdssdsd",
-        }, {
-            img: "https://www.pixsy.com/wp-content/uploads/2021/04/ben-sweet-2LowviVHZ-E-unsplash-1.jpeg",
-            Name: "Daniyal",
-            email: "D@gmail.com",
-            address: "hsjhjhajkhhkdhjhfjahjf",
-            contact: "03454545454",
-            Experinece: "dsdsdsdsdsdssdsd",
-        }, {
-            img: "https://www.pixsy.com/wp-content/uploads/2021/04/ben-sweet-2LowviVHZ-E-unsplash-1.jpeg",
-            Name: "Daniyal",
-            email: "D@gmail.com",
-            address: "hsjhjhajkhhkdhjhfjahjf",
-            contact: "03454545454",
-            Experinece: "dsdsdsdsdsdssdsd",
-        }, {
-            img: "https://www.pixsy.com/wp-content/uploads/2021/04/ben-sweet-2LowviVHZ-E-unsplash-1.jpeg",
-            Name: "Daniyal",
-            email: "D@gmail.com",
-            address: "hsjhjhajkhhkdhjhfjahjf",
-            contact: "03454545454",
-            Experinece: "dsdsdsdsdsdssdsd",
-        }, {
-            img: "https://www.pixsy.com/wp-content/uploads/2021/04/ben-sweet-2LowviVHZ-E-unsplash-1.jpeg",
-            Name: "Daniyal",
-            email: "D@gmail.com",
-            address: "hsjhjhajkhhkdhjhfjahjf",
-            contact: "03454545454",
-            Experinece: "dsdsdsdsdsdssdsd",
-        }, {
-            img: "https://www.pixsy.com/wp-content/uploads/2021/04/ben-sweet-2LowviVHZ-E-unsplash-1.jpeg",
-            Name: "Daniyal",
-            email: "D@gmail.com",
-            address: "hsjhjhajkhhkdhjhfjahjf",
-            contact: "03454545454",
-            Experinece: "dsdsdsdsdsdssdsd",
-        }, {
-            img: "https://www.pixsy.com/wp-content/uploads/2021/04/ben-sweet-2LowviVHZ-E-unsplash-1.jpeg",
-            Name: "Daniyal",
-            email: "D@gmail.com",
-            address: "hsjhjhajkhhkdhjhfjahjf",
-            contact: "03454545454",
-            Experinece: "dsdsdsdsdsdssdsd",
-        }, {
-            img: "https://www.pixsy.com/wp-content/uploads/2021/04/ben-sweet-2LowviVHZ-E-unsplash-1.jpeg",
-            Name: "Daniyal",
-            email: "D@gmail.com",
-            address: "hsjhjhajkhhkdhjhfjahjf",
-            contact: "03454545454",
-            Experinece: "dsdsdsdsdsdssdsd",
-        }, {
-            img: "https://www.pixsy.com/wp-content/uploads/2021/04/ben-sweet-2LowviVHZ-E-unsplash-1.jpeg",
-            Name: "Daniyal",
-            email: "D@gmail.com",
-            address: "hsjhjhajkhhkdhjhfjahjf",
-            contact: "03454545454",
-            Experinece: "dsdsdsdsdsdssdsd",
-        }, {
-            img: "https://www.pixsy.com/wp-content/uploads/2021/04/ben-sweet-2LowviVHZ-E-unsplash-1.jpeg",
-            Name: "Daniyal",
-            email: "D@gmail.com",
-            address: "hsjhjhajkhhkdhjhfjahjf",
-            contact: "03454545454",
-            Experinece: "dsdsdsdsdsdssdsd",
-        },
-    ]
+    const [post, setPost] = useState()
+    const dispatch = useDispatch()
+    const navigate=useNavigate()
+    const state = useSelector((e) => e)
+    // console.log(state.uiddata.userid.user);
+    useEffect(() => {
+        dispatch((dispatch) => companyPostData(dispatch, state))
+        setPost(Object.values(state?.signupreducer?.userid))
+    }, [])
+    const addData =(e)=>{
+        console.log(e.uid);
+        navigate(`/companyuserscv2/${e.uid}`,{data:e})
+    }
+    console.log(post, "====");
     return (
         <>
             <CompanyHome >
-            <div className="Home2">
-                <div className="homeParent2">
-                    {arr.map((e, i) => {
-                        return (
-                            <div key={i} className="HomeCards">
-                                <img className="Companyimg" src={e.img} />
-                                <h4 className="CompanyH4Name">{e.Name}</h4>
-                                <p className="companyBusiness">{e.email}</p>
-                                <p className="companyDescription">{e.address}</p>
-                                <p className="companyDescription">{e.contact}</p>
-                                <p className="companyAddress">{e.Experinece}</p>
-                            </div>
-                        )
-                    })}
+                <div className="Home2">
+                    <div className="homeParent2">
+                        {post?.map((e, i) => {
+                            console.log(e);
+                            return (
+                                (state?.uiddata?.userid?.user === e?.uid2?.id) ?
+                                    <div key={i} className="Postcards2">
+                                        <img className="Postimg" src={e.image} />
+                                        <h4 className="PostH4Name">{e.username}</h4>
+                                        <p className="PostBusiness">{e.email}</p>
+                                        <p className="PostDescription">{e.contact}</p>
+                                        <p className="PostAddress">{e.address}</p>
+                                        <p className="PostAddress">{e.experience}</p>
+                                        <button
+                                            onClick={() => addData(e)}
+                                            className="AddData">View</button>
+                                    </div>
+                                    :
+                                    <>
+                                    </>
+                            )
+                        })}
+                    </div>
                 </div>
-            </div>
             </CompanyHome >
         </>
     )

@@ -12,6 +12,7 @@ export default function Data(props) {
     const [contact, setContact] = useState();
     const [experience, setExperience] = useState();
     const [image, setImage] = useState();
+    const [condition, setCondition] = useState();
 //   const [dtstate,setDtState]=useState()
     const dispatch = useDispatch()
     const navigate = useNavigate()
@@ -28,8 +29,14 @@ export default function Data(props) {
         contact: contact,
         experience: experience,
         image:image,
-        uid: state.uiddata.userid.user
+        uid: state.uiddata.userid.user,
+        condition:condition
     }
+    useEffect(()=>{
+        setCondition("pending")
+    },[])
+    console.log(condition);
+    // console.log(condition);
     // setDtState(state)
     const studentdataData = (e) => {
         e.preventDefault();
