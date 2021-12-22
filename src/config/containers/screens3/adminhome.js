@@ -15,19 +15,31 @@ import MailIcon from '@mui/icons-material/Mail';
 import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import { useState } from 'react';
+import { useState,useEffect } from 'react';
 import { useNavigate } from 'react-router';
-import Admin from '../dashboard/home/loginpage/navbar/login/companylogin';
+// import Admin from '../dashboard/home/loginpage/navbar/login/companylogin';
+import { useDispatch, useSelector } from 'react-redux';
+import { signout, uiddata } from '../../firebaseconfig/firebaseconfig';
+// import { useState,useEffect } from 'react';
 const drawerWidth = 240;
 
 export default function AdimnHome(props) {
   const { window } = props;
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [loader, setLoader] = useState(false);
   const navigate =useNavigate()
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
-
+  const dispatch=useDispatch()
+  // const dispatch=useDispatch()
+  useEffect(() => {
+    dispatch((dispatch)=>uiddata(setLoader,dispatch,navigate))
+}, []);
+const logout=()=>{
+  dispatch(()=>signout(navigate,dispatch))
+}
+const state=useSelector((e)=>e)
   // useEffect                
   // const firstData = window().location.pathname.split("/")
 
@@ -37,18 +49,15 @@ export default function AdimnHome(props) {
       <Toolbar />
       <Divider />
       <List>
-        {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-          <ListItem button key={text}>
-            <ListItemIcon>
-              {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-            </ListItemIcon>
-            <ListItemText primary={text} />
-          </ListItem>
-        ))}
+        <div className="stateuiddata">
+          {/* <h5>{state.uiddata2reducer2.userid.username}</h5>
+              <h5>{state.uiddata2reducer2.userid.email}</h5> */}
+          <button onClick={() => logout()}>signout</button>
+        </div>
       </List>
       <Divider />
       <List>
-        {['Studentdata', 'Companydata', 'Data',"Hireforjob",'Notification',].map((text, index) => (
+        {['Studentdata', 'Companydata', 'HiringData','Authentitation'].map((text, index) => (
           <ListItem button key={text} onClick={()=>navigate(`/admin${text}`,)}>
             <ListItemIcon>
               {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
@@ -122,9 +131,9 @@ export default function AdimnHome(props) {
         sx={{ flexGrow: 1, p: 3, width: { sm: `calc(100% - ${drawerWidth}px)` } }}
       >
         <Toolbar />
-        <Typography >
+        <div >
           {props.children}
-        </Typography>
+        </div>
       </Box>
     </Box>
   );

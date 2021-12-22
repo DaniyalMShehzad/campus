@@ -11,7 +11,7 @@ export default function CompanyHome2() {
     // const 
     useEffect(() => {
         setData(Object.values(state?.studentdata?.userid))
-        dispatch((dispatch) => getCompanyData(dispatch))
+        dispatch((dispatch) => getCompanyData(dispatch,state))
     }, [])
     return (
         <>

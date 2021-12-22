@@ -27,9 +27,10 @@ export default function Home2() {
                                 <div key={i} className="Postcards3">
                                 <img className="Postimg" src={e.image} />
                                 <h4 className="PostH4Name">{e.username}</h4>
+                                <p className="PostBusiness">{e.email}</p>
                                 <p className="PostDescription">{e.contact}</p>
                                 <p className="PostBusiness">{e.address}</p>
-                                <p className="PostAddress">{e.address}</p>
+                                <p className="PostAddress">{e.desc}</p>
                             </div>
                             //     <Card
                             //     hoverable

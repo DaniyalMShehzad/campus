@@ -329,6 +329,12 @@ p.PostBusiness {
   border-color: transparent;
   box-shadow: 0 1px 2px -2px rgba(0, 0, 0, 0.13), 0 3px 6px 0 rgba(0, 0, 0, 0.116), 0 5px 12px 4px rgba(0, 0, 0, 0.089);
 }
+.Postcards3:hover{
+  cursor: pointer;
+  transition: box-shadow .3s,border-color .3s;
+  border-color: transparent;
+  box-shadow: 0 1px 2px -2px rgba(0, 0, 0, 0.13), 0 3px 6px 0 rgba(0, 0, 0, 0.116), 0 5px 12px 4px rgba(0, 0, 0, 0.089);
+}
 p.PostDescription {
   font-size: 21px;
   font-weight: 500;
@@ -498,6 +504,30 @@ form.dataForm {
   box-shadow: 0 1px 2px -2px rgba(0, 0, 0, 0.13), 0 3px 6px 0 rgba(0, 0, 0, 0.116), 0 5px 12px 4px rgba(0, 0, 0, 0.089);
   margin-top: 26px;
 }
+.Postcards3 {
+  text-align: center;
+  /* display: flex; */
+  /* flex-direction: column; */
+  width: 31%;
+  min-height: 350px;
+  /* border: 1px outset; */
+  margin-bottom: 19px;
+  /* border-radius: 23px; */
+  /* background-color: ghostwhite; */
+  border: 1px solid #f0f0f0;
+  box-sizing: border-box;
+  /* margin: 0; */
+  padding: 0;
+  color: rgba(0,0,0,.85);
+  font-size: 14px;
+  font-variant: tabular-nums;
+  line-height: 1.5715;
+  list-style: none;
+  font-feature-settings: "tnum";
+  position: relative;
+  background: #fff;
+  border-radius: 2px;
+}
 input.dataInputBar {
     height: 40px;
     outline: none;
@@ -526,6 +556,27 @@ input.dataInputBar {
   justify-content: center;
   font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial,Noto Sans,sans-serif,apple color emoji,segoe ui emoji,Segoe UI Symbol,noto color emoji !important;
 }
+.Authentitation {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial,Noto Sans,sans-serif,apple color emoji,segoe ui emoji,Segoe UI Symbol,noto color emoji !important;
+}
+table.Authentitation2 {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  color: #000000d9;
+  font-variant: tabular-nums;
+  line-height: 1.5715;
+  list-style: none;
+  font-feature-settings: "tnum";
+  position: relative;
+  font-size: 14px;
+  background: #fff;
+  border-radius: 2px;
+  width: 50%;
+}
 table.adminUser2 {
   box-sizing: border-box;
   margin: 0;
@@ -544,12 +595,32 @@ table.adminUser2 {
 tr.admintr2:hover {
   background: #fafafa;
 }
+tr.Authentitationtr2:hover {
+  background: #fafafa !important;
+}
 td.admintd {
   position: relative;
   padding: 16px;
   overflow-wrap: break-word;
   border-bottom: 1px solid #f0f0f0;
   /* transition: background .3s; */
+}
+td.Authentitationtd {
+  position: relative;
+  padding: 16px;
+  overflow-wrap: break-word;
+  border-bottom: 1px solid #f0f0f0;
+  /* transition: background .3s; */
+}
+th.Authentitationthead {
+  padding: 16px !important;
+  position: relative;
+  color: #000000d9;
+  font-weight: 500;
+  text-align: left;
+  background: #fafafa;
+  border-bottom: 1px solid #f0f0f0;
+  /* transition: background .3s ease; */
 }
 th.adminthead {
   padding: 16px !important;
@@ -560,6 +631,18 @@ th.adminthead {
   background: #fafafa;
   border-bottom: 1px solid #f0f0f0;
   /* transition: background .3s ease; */
+}
+tr.Authentitationtr {
+  background-color: #FAFAFA;
+  border: 1px solid #FAFAFA;
+  position: relative;
+  color: #000000d9;
+  font-weight: 500;
+  text-align: left;
+  background: #fafafa;
+  border-bottom: 1px solid #f0f0f0;
+  /* transition:  .3s ease; */
+  padding: 16px;
 }
 tr.admintr {
   background-color: #FAFAFA;

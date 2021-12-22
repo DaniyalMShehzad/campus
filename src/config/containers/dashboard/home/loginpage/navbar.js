@@ -9,6 +9,7 @@ export default function Navbar() {
             <NavLink className="navLogin" to="/companylogin">Companylogin</NavLink>
             {/* <NavLink className="navLogin" to="/companylogin">Companylogin</NavLink> */}
             <NavLink className="navLogin" to="/companysignup">Company Signup</NavLink>
+            <NavLink className="navLogin" to="/adminsignin">Admin Signin</NavLink>
             </div>
         </div>
     )

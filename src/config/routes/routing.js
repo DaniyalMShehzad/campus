@@ -19,4 +19,6 @@ import AdimnHome from '../containers/screens3/adminhome';
 import AdminCompanyData from '../containers/screens3/companydata/companydata';
 import AdminStudentData from '../containers/screens3/studentdata/studentdata';
 import UsersCv from '../containers/screens2/notification/userscv';
-export {Navbar,UsersCv,Companysignup,CompanyLogin,Login,SignUp,Data,Home,Home2,Post,CompanyHome,CompanyData,CompanyHiring,Hiring,CompanyHome2,Notification,CompanyAccount,AdminStudentData,AdminCompanyData,AdimnHome,Hiringdata}
+import AdminLogin from '../containers/dashboard/home/loginpage/navbar/login/adminsignin';
+import Authentitation from '../containers/screens3/authentitation/authentitation';
+export {Navbar,Authentitation,AdminLogin, UsersCv,Companysignup,CompanyLogin,Login,SignUp,Data,Home,Home2,Post,CompanyHome,CompanyData,CompanyHiring,Hiring,CompanyHome2,Notification,CompanyAccount,AdminStudentData,AdminCompanyData,AdimnHome,Hiringdata}

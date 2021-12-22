@@ -1,85 +1,39 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { useNavigate } from 'react-router'
+import { companyPostData } from '../../../firebaseconfig/firebaseconfig'
 import AdimnHome from '../adminhome'
 
 export default function AdminCompanyData() {
-    const arr = [
-        {
-            img:"https://www.pixsy.com/wp-content/uploads/2021/04/ben-sweet-2LowviVHZ-E-unsplash-1.jpeg",
-            companyName: "company",
-            business: "software",
-            discpriton: "hsjhjhajkhhkdhjhfjahjf",
-            address: "dafdfddddddddddddddddd",
-        },
-        {
-            img:"https://www.pixsy.com/wp-content/uploads/2021/04/ben-sweet-2LowviVHZ-E-unsplash-1.jpeg",
-            companyName: "company",
-            business: "software",
-            discpriton: "hsjhjhajkhhkdhjhfjahjf",
-            address: "dafdfddddddddddddddddd",
-        }, {
-            img:"https://www.pixsy.com/wp-content/uploads/2021/04/ben-sweet-2LowviVHZ-E-unsplash-1.jpeg",
-            companyName: "company",
-            business: "software",
-            discpriton: "hsjhjhajkhhkdhjhfjahjf",
-            address: "dafdfddddddddddddddddd",
-        }, {
-            img:"https://www.pixsy.com/wp-content/uploads/2021/04/ben-sweet-2LowviVHZ-E-unsplash-1.jpeg",
-            companyName: "company",
-            business: "software",
-            discpriton: "hsjhjhajkhhkdhjhfjahjf",
-            address: "dafdfddddddddddddddddd",
-        }, {
-            img:"https://www.pixsy.com/wp-content/uploads/2021/04/ben-sweet-2LowviVHZ-E-unsplash-1.jpeg",
-            companyName: "company",
-            business: "software",
-            discpriton: "hsjhjhajkhhkdhjhfjahjf",
-            address: "dafdfddddddddddddddddd",
-        }, {
-            img:"https://www.pixsy.com/wp-content/uploads/2021/04/ben-sweet-2LowviVHZ-E-unsplash-1.jpeg",
-            companyName: "company",
-            business: "software",
-            discpriton: "hsjhjhajkhhkdhjhfjahjf",
-            address: "dafdfddddddddddddddddd",
-        }, {
-            img:"https://www.pixsy.com/wp-content/uploads/2021/04/ben-sweet-2LowviVHZ-E-unsplash-1.jpeg",
-            companyName: "company",
-            business: "software",
-            discpriton: "hsjhjhajkhhkdhjhfjahjf",
-            address: "dafdfddddddddddddddddd",
-        },
-        {
-            img:"https://www.pixsy.com/wp-content/uploads/2021/04/ben-sweet-2LowviVHZ-E-unsplash-1.jpeg",
-            companyName: "company",
-            business: "software",
-            discpriton: "hsjhjhajkhhkdhjhfjahjf",
-            address: "dafdfddddddddddddddddd",
-        },
-        {
-            img:"https://www.pixsy.com/wp-content/uploads/2021/04/ben-sweet-2LowviVHZ-E-unsplash-1.jpeg",
-            companyName: "company",
-            business: "software",
-            discpriton: "hsjhjhajkhhkdhjhfjahjf",
-            address: "dafdfddddddddddddddddd",
-        },
-    ]
+    const [post, setPost] = useState()
+    const dispatch =useDispatch()
+    const navigate =useNavigate()
+    const state=useSelector((e)=>e)
+    useEffect(()=>{
+        setPost(Object.values(state?.signupreducer?.userid))
+        dispatch((dispatch)=> companyPostData(dispatch,state))
+    },[])
     return (
             <>
-            <AdimnHome/>
+            <AdimnHome>
                 <div className="Home2">
                     <div className="homeParent2">
-                        {arr.map((e, i) => {
+                        {post?.map((e, i) => {
                             return (
-                                <div key={i} className="HomeCards">
-                                    <img className="Companyimg" src={e.img} />
-                                    <h4 className="CompanyH4Name">{e.companyName}</h4>
-                                    <p className="companyBusiness">{e.business}</p>
-                                    <p className="companyDescription">{e.discpriton}</p>
-                                    <p className="companyAddress">{e.address}</p>
-                                </div>
+                                <div key={i} className="Postcards2">
+                                <img className="Postimg23" src={e.image} />
+                                <h4 className="PostH4Name">{e.username}</h4>
+                                <p className="PostBusiness">{e.email}</p>
+                                <p className="PostDescription">{e.contact}</p>
+                                <p className="PostAddress">{e.address}</p>
+                                {/* <p className="PostAddress">{e.experience}</p> */}
+                                <button className="AddData">Delete</button>
+                            </div>
                             )
                         })}
                     </div>
                 </div>
+                </AdimnHome>
             </>
     )
 }

@@ -4,7 +4,7 @@ const INITIAL_STATE = {
   };
   export default (state=INITIAL_STATE,action)=>{
     switch (action.type) {
-      case "STUDENTDATA2":
+      case "ADMINAUTHENTATION":
       console.log(action.payload)
       state.userid = action.payload
       return state;

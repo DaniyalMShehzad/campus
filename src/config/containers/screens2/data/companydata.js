@@ -40,6 +40,20 @@ export default function CompanyData() {
         setImage("")
     }
     console.log(state);
+    // const HandleChange = (e) => {
+    //     let reader = new FileReader();
+    //     reader.onload = () => {
+    //         if (reader.readyState == 2)
+    //         setImage(reader.result);
+    //     };
+    //     if(e.target.file){
+    //         console.log("gfg");
+    //         // reader.readAsDataURL(e.target.files[0]);
+    //     }
+    //     console.log(reader);
+    //     console.log(e.target.files[0]);
+    // }
+
     const HandleChange = (e) => {
         let reader = new FileReader();
         reader.onload = () => {

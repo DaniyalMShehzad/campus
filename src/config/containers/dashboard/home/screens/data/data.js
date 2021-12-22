@@ -42,13 +42,20 @@ export default function Data(props) {
         e.preventDefault();
         dispatch((dispatch) => addData(obj, dispatch, navigate,state))
         // props.addData(obj, navigate)
+        setCondition("")
+        setImage("")
+        setExperience("")
+        setAddress("")
+        setContact("")
+        setEmail("")
+        setUserName("")
     }
     const HandleChange = (e) => {
         let reader = new FileReader();
         reader.onload = () => {
             if (reader.readyState == 2)
                 setImage(reader.result);
-        };
+            };
         // firebase.database().ref('UserData').push(object)
         reader.readAsDataURL(e.target.files[0]);
     }
@@ -76,23 +83,23 @@ export default function Data(props) {
                                 </div> */}
                             <div className="DataField">
                                 <label className="DataLabel">Enter Your Name</label>
-                                <input className="dataInputBar" required type="text" onChange={(e) => setUserName(e.target.value)} />
+                                <input className="dataInputBar" required type="text" value={username} onChange={(e) => setUserName(e.target.value)} />
                             </div>
                             <div className="DataField">
                                 <label className="DataLabel">Enter Your Email</label>
-                                <input className="dataInputBar" required type="email" onChange={(e) => setEmail(e.target.value)} />
+                                <input className="dataInputBar" required type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
                             </div>
                             <div className="DataField">
                                 <label className="DataLabel">Enter Your Address</label>
-                                <input className="dataInputBar" required type="text" onChange={(e) => setAddress(e.target.value)} />
+                                <input className="dataInputBar" required type="text" value={address} onChange={(e) => setAddress(e.target.value)} />
                             </div>
                             <div className="DataField">
                                 <label className="DataLabel">Contact</label>
-                                <input className="dataInputBar" required type="number" onChange={(e) => setContact(e.target.value)} />
+                                <input className="dataInputBar" required type="number" value={contact} onChange={(e) => setContact(e.target.value)} />
                             </div>
                             <div className="DataField">
                                 <label className="DataLabel">Experience</label>
-                                <textarea className="DataTextBar" name="w3review" rows="4" cols="58" onChange={(e) => setExperience(e.target.value)}> </textarea>
+                                <textarea className="DataTextBar" name="w3review" rows="4" cols="58" value={experience} onChange={(e) => setExperience(e.target.value)}> </textarea>
                             </div>
                         </div>
                         <button className="DataAddData">Add Data</button>

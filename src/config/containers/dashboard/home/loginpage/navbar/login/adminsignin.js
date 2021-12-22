@@ -1,44 +1,38 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router'
-import { Link, NavLink } from "react-router-dom";
 import Navbar from '../../navbar';
+import { useDispatch, useSelector } from 'react-redux';
+import { login } from '../../../../../../firebaseconfig/firebaseconfig';
 import { Input, Space } from 'antd';
 import { EyeInvisibleOutlined, EyeTwoTone } from '@ant-design/icons';
-import { useDispatch } from 'react-redux';
-import {  login, signup } from '../../../../../../firebaseconfig/firebaseconfig';
-export default function CompanySignup() {
+export default function AdminLogin() {
     const [email, setEmail] = useState()
     const [password, setPassowrd] = useState()
-    const [username, setUserName] = useState()
+
+//     const state= useSelector((e)=>e)
+// console.log(state);
     const navigate = useNavigate()
     const dispatch=useDispatch()
-    let type ={type:"company"}
-    const login = (e) => {
+const signIn = (e) => {
     e.preventDefault()
     let obj={
         email,
         password,
-        type,
-        username
     }
-    dispatch((dispatch)=>signup(dispatch, navigate, obj))
+    dispatch((dispatch)=>login(obj,navigate,dispatch))
 }
     return (
         <>
-            <div className="Company">
+            <div className="login">
                 <Navbar />
-                <div className="Company2">
-                    <form className="formLogin2" onSubmit={(e)=>login(e)}>
+                <div className="login2">
+                    <form className="formLogin"onSubmit={(e)=>signIn(e)} >
                         <div className="login3">
-                            <h3 className="signinh4">Company Signup</h3>
+                            <h3 className="signinh4">Admin Sign in</h3>
                             <img className="guestImg" src="https://images.macrumors.com/t/n4CqVR2eujJL-GkUPhv1oao_PmI=/1600x/article-new/2019/04/guest-user-250x250.jpg" />
                             <div className="setEmail">
-                                <label className="EmailLabel">User Name</label>
-                                <input onChange={(e) => setUserName(e.target.value)} type='text' required className="enterEmail" placeholder="enter your email" />
-                            </div>
-                            <div className="setEmail">
                                 <label className="EmailLabel">Email address</label>
-                                <input onChange={(e) => setEmail(e.target.value)} type='email' required className="enterEmail" placeholder="enter your email" />
+                                <input onChange={(e) => setEmail(e.target.value)} required type='email' required className="enterEmail" placeholder="enter your email" />
                             </div>
                             <div className="setEmail">
                                 <label className="EmailLabel">Password</label>
@@ -49,7 +43,7 @@ export default function CompanySignup() {
                                     iconRender={visible => (visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />)}
                                 />
                             </div>
-                            <button className="LoginBtn">sign in</button>
+                            <button className="LoginBtn" >sign in</button>
                         </div>
                     </form>
                 </div>
