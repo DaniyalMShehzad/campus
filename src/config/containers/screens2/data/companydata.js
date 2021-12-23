@@ -1,3 +1,4 @@
+import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
 import React, { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router';
@@ -11,35 +12,41 @@ export default function CompanyData() {
     const [contact, setContact] = useState();
     const [image, setImage] = useState();
     // const [desc, setDesc] = useState();
-    // const [dtstate,setDtState]=useState({})    
+    const [dtstate, setDtState] = useState({})
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const state = useSelector(state => state)
-
-
-    // useEffect(()=>{
-    //     setDtState(state)
-    // },[state])
-
+    useEffect(() => {
+        setDtState(state)
+    }, [state])
     // console.log(state.uiddata.userid.type.type);
     const Data = (e) => {
-        const obj = {
+        e.preventDefault(e);
+        const storage = getStorage();
+        const storageRef = ref(storage,`${state?.uiddata?.userid?.user}`);
+        // 'file' comes from the Blob or File API
+        uploadBytes(storageRef, image)
+        .then((snapshot) => {
+            getDownloadURL(snapshot.ref).then((downloadURL) => {
+                console.log("kj", downloadURL);
+            const obj = {
             username: username,
             email: email,
-            address: address,
+            addess: address,
+            image: downloadURL,
             contact: contact,
             uid: state.uiddata.userid.user,
-            image: image
         }
-        e.preventDefault(e);
         dispatch((dispatch) => addData(obj, dispatch, navigate, state))
         setUserName("")
         setEmail("")
         setAddress("")
         setContact("")
         setImage("")
+    })
+    });
     }
-    console.log(state);
+    // console.log(state);
     // const HandleChange = (e) => {
     //     let reader = new FileReader();
     //     reader.onload = () => {
@@ -55,17 +62,14 @@ export default function CompanyData() {
     // }
 
     const HandleChange = (e) => {
-        let reader = new FileReader();
-        reader.onload = () => {
-            if (reader.readyState == 2)
-                setImage(reader.result);
-        };
-        // firebase.database().ref('UserData').push(object)
-        reader.readAsDataURL(e.target.files[0]);
+        setImage(e.target.files[0])
     }
     return (
         <>
             <CompanyHome>
+                <h1>
+                    hello world
+                </h1>
                 <div>
                     <div className="Data">
                         <div className="dataParent">
@@ -75,11 +79,10 @@ export default function CompanyData() {
                                     <div className="DataField">
                                         <label className="EmailLabel">Image</label>
                                         <input
-                                            onChange={HandleChange}
+                                            onChange={(e)=>HandleChange(e)}
                                             type="file"
                                             className="enterEmail2"
                                             placeholder='enter your Image'
-                                            value={image}
                                         />
                                     </div>
                                     <div className="DataField">
@@ -106,6 +109,5 @@ export default function CompanyData() {
                 </div>
             </CompanyHome>
         </>
-
     )
 }

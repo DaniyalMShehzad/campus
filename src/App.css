@@ -575,7 +575,7 @@ table.Authentitation2 {
   font-size: 14px;
   background: #fff;
   border-radius: 2px;
-  width: 50%;
+  width: 60%;
 }
 table.adminUser2 {
   box-sizing: border-box;
@@ -611,6 +611,13 @@ td.Authentitationtd {
   overflow-wrap: break-word;
   border-bottom: 1px solid #f0f0f0;
   /* transition: background .3s; */
+}
+svg.MdDelete {
+  font-size: 22px;
+  cursor: pointer;
+}
+svg.MdDelete:hover {
+  color: darkgrey;
 }
 th.Authentitationthead {
   padding: 16px !important;

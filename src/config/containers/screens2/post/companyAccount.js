@@ -17,6 +17,7 @@ export default function CompanyAccount() {
         setData(Object.values(state?.loginreducer?.userid))
         dispatch((dispatch)=> authentication(dispatch,state))
     },[])
+    console.log(state);
     // console.log(data);
     return (
         <>

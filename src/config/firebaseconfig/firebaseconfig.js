@@ -1,7 +1,7 @@
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
-import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, onAuthStateChanged,signOut } from "@firebase/auth";
-import { getDatabase, ref, set, push, get, child } from "firebase/database";
+import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, onAuthStateChanged,signOut,deleteUser } from "@firebase/auth";
+import { getDatabase, ref, set, push, get, child, onChildRemoved ,} from "firebase/database";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -56,6 +56,15 @@ let login = (obj, navigate, dispatch) => {
       const errorCode = error.code;
       const errorMessage = error.message;
       alert("error" + errorMessage)
+      signOut(auth)
+      .then(() => {
+        console.log("Sign-out successful");
+        navigate("/")
+      })
+      // .catch((error) => {
+      
+      //   console.log("An error happened.");
+      // });
     });
 }
 let signup = (dispatch, navigate, obj) => {
@@ -65,10 +74,11 @@ let signup = (dispatch, navigate, obj) => {
     // Signed in 
     const user = userCredential.user.uid;
     // console.log(user.uid);
-    let newobj={...obj,user}
+    let newobj={...obj,user,}
     console.log(newobj);
     const db = getDatabase();
-    set(ref(db, "authentication/"+ newobj.user), {
+    console.log(user);
+    set(ref(db, "authentication/"+user), {
       newobj
     })
     const dbRef = ref(getDatabase());
@@ -122,18 +132,17 @@ let uiddata = (setLoader, dispatch,navigate) => {
           console.log(snapshot.val());
           let uidData= {...snapshot.val()}
           // if(uidData?.type?.type==="user"){
+            dispatch({
+              type: "USERUIDDATA",
+              payload: uidData,
+            })
           //   navigate("/loginhome2")
           // }
           // else if(uidData?.type?.type==="company"){
           //   navigate("/companyHome2")
           // }
-          dispatch({
-            type: "USERUIDDATA",
-            payload: uidData,
-          })
           // console.log(uiddata);
         }
-      
       })
       setLoader(false);
     } else {
@@ -391,6 +400,15 @@ const acceptData=(dispatch,accept,data,usersuid)=>{
   
     // console.log(data);
 }
+const deleteuser=(e)=>{
+  console.log(e.newobj.user);
+  const db = getDatabase();
+  const commentsRef = ref(db, 'authentication/' + e.newobj.user);
+  // onChildRemoved(commentsRef, (e) => {
+  //   console.log(e,"ggh");
+  //   // deleteComment(postElement, e.newobj.user);
+  // });
+}
 export { login, 
   signup,  
   addData,
@@ -402,5 +420,6 @@ export { login,
   addCompanyData,
   getCompanyData,
   acceptData,
-  adminAuthentitation
+  adminAuthentitation,
+  deleteuser
 }

@@ -13,6 +13,7 @@ export default function AdminCompanyData() {
         setPost(Object.values(state?.signupreducer?.userid))
         dispatch((dispatch)=> companyPostData(dispatch,state))
     },[])
+    // console.log(state);
     return (
             <>
             <AdimnHome>

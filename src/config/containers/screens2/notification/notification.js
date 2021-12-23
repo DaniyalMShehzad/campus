@@ -9,16 +9,18 @@ export default function Notification() {
     const dispatch = useDispatch()
     const navigate=useNavigate()
     const state = useSelector((e) => e)
-    // console.log(state.uiddata.userid.user);
+    console.log(state);
+    useEffect(()=>{
+        setPost(Object.values(state?.signupreducer?.userid))
+    },[])
     useEffect(() => {
         dispatch((dispatch) => companyPostData(dispatch, state))
-        setPost(Object.values(state?.signupreducer?.userid))
     }, [])
     const addData =(e)=>{
         console.log(e.uid);
         navigate(`/companyuserscv2/${e.uid}`,{data:e})
     }
-    console.log(post, "====");
+    // console.log(post)
     return (
         <>
             <CompanyHome >

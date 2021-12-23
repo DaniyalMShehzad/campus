@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import Home from '../home'
+import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { connect, useDispatch, useSelector } from 'react-redux';
 import { addData } from '../../../../../firebaseconfig/firebaseconfig';
 import { useNavigate } from 'react-router';
@@ -13,68 +14,68 @@ export default function Data(props) {
     const [experience, setExperience] = useState();
     const [image, setImage] = useState();
     const [condition, setCondition] = useState();
-//   const [dtstate,setDtState]=useState()
+    //   const [dtstate,setDtState]=useState()
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const state = useSelector((e) => e)
-    console.log(state.uiddata.userid.user)
-    // let uid={
-    //     id:state.userid.userid
-    // }
-    const obj = {
-        // image: image,
-        username: username,
-        email: email,
-        address: address,
-        contact: contact,
-        experience: experience,
-        image:image,
-        uid: state.uiddata.userid.user,
-        condition:condition
-    }
-    useEffect(()=>{
+    // console.log(state.uiddata.userid.user)
+    useEffect(() => {
         setCondition("pending")
-    },[])
-    console.log(condition);
+    }, [])
+    // console.log(condition);
     // console.log(condition);
     // setDtState(state)
     const studentdataData = (e) => {
         e.preventDefault();
-        dispatch((dispatch) => addData(obj, dispatch, navigate,state))
-        // props.addData(obj, navigate)
-        setCondition("")
-        setImage("")
-        setExperience("")
-        setAddress("")
-        setContact("")
-        setEmail("")
-        setUserName("")
+        const storage = getStorage();
+        const storageRef = ref(storage, state?.uiddata?.userid?.user);
+        // 'file' comes from the Blob or File API
+        uploadBytes(storageRef, image)
+            .then((snapshot) => {
+                console.log(snapshot);
+                getDownloadURL(snapshot.ref).then((downloadURL) => {
+                    console.log("kj", downloadURL);
+                    const obj = {
+                        username: username,
+                        email: email,
+                        address: address,
+                        contact: contact,
+                        experience: experience,
+                        image:downloadURL,
+                        uid: state.uiddata.userid.user,
+                        condition:condition
+                    }
+                    dispatch((dispatch) => addData(obj, dispatch, navigate,state))
+                    // props.addData(obj, navigate)
+                    setCondition("")
+                    setImage("")
+                    setExperience("")
+                    setAddress("")
+                    setContact("")
+                    setEmail("")
+                    setUserName("")
+                });
+            })
     }
     const HandleChange = (e) => {
-        let reader = new FileReader();
-        reader.onload = () => {
-            if (reader.readyState == 2)
-                setImage(reader.result);
-            };
-        // firebase.database().ref('UserData').push(object)
-        reader.readAsDataURL(e.target.files[0]);
+        setImage(e.target.files[0])
     }
     return (
         <Home>
             {/* <Home /> */}
             <div className="Data">
                 <div className="dataParent">
-                    <form className="dataForm"  onSubmit={(e)=>studentdataData(e)} >
+                    <form className="dataForm" onSubmit={(e) => studentdataData(e)} >
                         <h4 className="DataH4EnterData">Enter Data</h4>
                         <div className="DataDiv">
                             <div className="DataField">
                                 <label className="EmailLabel">Image</label>
                                 <input
-                                    onChange={HandleChange}
+                                    onChange={(e) => HandleChange(e)}
                                     type="file"
                                     className="enterEmail2"
                                     placeholder='enter your Image'
-                                    required
+                                    // value={image}
                                 />
                             </div>
                             {/* <div className="DataField">
@@ -122,5 +123,3 @@ export default function Data(props) {
 //     )
 
 // export default connect(mapStateToProps, mapDispatchToProps)(Data)
-
-
