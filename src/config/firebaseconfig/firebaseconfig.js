@@ -1,7 +1,7 @@
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, onAuthStateChanged,signOut,deleteUser } from "@firebase/auth";
-import { getDatabase, ref, set, push, get, child, onChildRemoved ,} from "firebase/database";
+import { getDatabase, ref, set, push, get, child, onChildRemoved ,remove} from "firebase/database";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -403,11 +403,12 @@ const acceptData=(dispatch,accept,data,usersuid)=>{
 const deleteuser=(e)=>{
   console.log(e.newobj.user);
   const db = getDatabase();
-  const commentsRef = ref(db, 'authentication/' + e.newobj.user);
-  // onChildRemoved(commentsRef, (e) => {
-  //   console.log(e,"ggh");
-  //   // deleteComment(postElement, e.newobj.user);
-  // });
+  const commentsRef = ref(db, `authentication/`+e.newobj.user)
+  console.log(commentsRef);
+    remove(commentsRef).then((e) => {
+      console.log(e,"ggh");
+      // deleteComment(e.newobj.user);
+    })
 }
 export { login, 
   signup,  

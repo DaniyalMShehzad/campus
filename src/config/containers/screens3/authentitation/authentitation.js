@@ -13,7 +13,7 @@ export default function Authentitation() {
     useEffect(() => {
         setPost(Object.values(state?.studentsdata2reducer?.userid))
         dispatch((dispatch) => adminAuthentitation(dispatch, navigate, state))
-    }, [])
+    }, [state])
     console.log(post);
     const deleteusers = (e) => {
         console.log(e.newobj.user);

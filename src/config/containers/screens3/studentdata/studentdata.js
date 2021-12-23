@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router'
-import { authentication } from '../../../firebaseconfig/firebaseconfig'
+import { authentication, deleteuser } from '../../../firebaseconfig/firebaseconfig'
 import AdimnHome from '../adminhome'
 
 export default function AdminStudentData() {
@@ -16,6 +16,10 @@ export default function AdminStudentData() {
         setData(Object.values(state?.loginreducer?.userid))
         dispatch((dispatch) => authentication(dispatch, state))
     }, [])
+    const deleteusers = (e) => {
+        console.log(e.newobj.user);
+        dispatch(() => deleteuser(e))
+    }
     return (
         <>
             <AdimnHome>
@@ -31,7 +35,7 @@ export default function AdminStudentData() {
                                         <p className="PostDescription">{e.contact}</p>
                                         <p className="PostAddress">{e.address}</p>
                                         <p className="PostAddress">{e.experience}</p>
-                                        <button className="AddData">Delete</button>
+                                        <button onClick={()=>deleteusers(e)} className="AddData">Delete</button>
                                     </div>
                                 )
                             })}
