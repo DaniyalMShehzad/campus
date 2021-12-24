@@ -44,7 +44,6 @@ export default function Home(props) {
   }
   useEffect(()=>{
     setData(state)
-    console.log(data)
   },[state])
   // useEffect                
   // const firstData = window().location.pathname.split("/")

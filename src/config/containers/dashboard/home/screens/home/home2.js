@@ -4,19 +4,29 @@ import { Card } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import { authentication } from '../../../../../firebaseconfig/firebaseconfig';
 import { useNavigate } from 'react-router';
+import { getDatabase, ref, set, push, get, child, onChildRemoved ,remove} from "firebase/database";
 export default function Home2() {
     const [data,setData]=useState()
     const { Meta } = Card;
-    
+    const [loader,setLoader]=useState(false)
     const dispatch=useDispatch()
     const navigate=useNavigate()
     const state=useSelector((e)=>e)
     // console.log(Object.values(state.loginreducer.userid));
     useEffect(()=>{
         setData(Object.values(state?.loginreducer?.userid))
-        dispatch((dispatch)=> authentication(dispatch,state))
+        dispatch((dispatch)=> authentication(dispatch,state,setLoader))
     },[])
     console.log(data);
+    console.log(loader);
+    // get(child(dbRef, `studentData/`)).then((snapshot) => {
+    //     // if (snapshot.exists()) {
+    //       console.log(snapshot.val());
+    //       let newobj= {...snapshot.val()}
+    //       console.log(newobj);
+    //       // navigate({state:newobj})
+    //     // }
+    //   })
     return (
         <>
             <Home>

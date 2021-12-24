@@ -28,11 +28,11 @@ let login = (obj, navigate, dispatch) => {
     .then((userCredential) => {
       // Signed in 
       const user = userCredential.user.uid;
-      console.log(user);
+      // console.log(user);
       const dbRef = ref(getDatabase());
       get(child(dbRef, `authentication/${user}/newobj`)).then((snapshot) => {
         if (snapshot.exists()) {
-          console.log(snapshot.val());
+          // console.log(snapshot.val());
           let uidData= {...snapshot.val()}
           if(uidData?.type?.type==="user"){
             navigate("/loginhome2")
@@ -58,7 +58,8 @@ let login = (obj, navigate, dispatch) => {
       alert("error" + errorMessage)
       signOut(auth)
       .then(() => {
-        console.log("Sign-out successful");
+        alert("No user found")
+        // console.log("Sign-out successful");
         navigate("/")
       })
       // .catch((error) => {
@@ -250,7 +251,7 @@ let addpostdata = (dispatch,navigate,state,e) => {
           const newPostKey = push(child(ref(db), 'posts')).key;
           console.log(newPostKey);
           set(ref(db, `studentscv/${newPostKey}`), newobj).then(() => {
-            navigate({data:newobj})   
+            navigate({data:newobj})
           })
         }else{
           console.log("no data avalible");
@@ -258,8 +259,9 @@ let addpostdata = (dispatch,navigate,state,e) => {
       })
     }
     } 
-const authentication = (dispatch,state) => {
+const authentication = (dispatch,state,setLoader) => {
   const dbRef = ref(getDatabase());
+  setLoader(true)
   if(state?.uiddata?.userid?.type?.type==="user"){
     get(child(dbRef, `companyData/`)).then((snapshot) => {
       // if (snapshot.exists()) {
@@ -273,6 +275,7 @@ const authentication = (dispatch,state) => {
         payload: newobj,
       })
     })
+    setLoader(false)
   }
   else if(state?.uiddata?.userid?.type?.type==="company"){
       get(child(dbRef, `authentication/`)).then((snapshot) => {
@@ -287,6 +290,7 @@ const authentication = (dispatch,state) => {
           payload: newobj,
         })
       })
+    setLoader(false)
     }
     else if(state?.uiddata?.userid?.type?.type==="admin"){
       get(child(dbRef, `studentData/`)).then((snapshot) => {
@@ -301,6 +305,7 @@ const authentication = (dispatch,state) => {
           payload: newobj,
         })
       })
+    setLoader(false)
     }
 };
 let adminAuthentitation=(dispatch, navigate,state)=>{
@@ -392,23 +397,65 @@ signOut(auth).then(() => {
   console.log("An error happened.");
 });
 }
-const acceptData=(dispatch,accept,data,usersuid)=>{
+const acceptData=(dispatch,accept,data,usersuid,navigate)=>{
   // console.log(data);
+  const db = getDatabase();
   let obj={}
   obj=data.filter((a,i)=>a.uid===usersuid)[0] 
-  console.log({...obj,condition:accept});
-  
-    // console.log(data);
+  console.log(usersuid);
+  const dbRef = ref(getDatabase());
+  get(child(dbRef, `studentData/${usersuid}`)).then((snapshot) => {
+    // if (snapshot.exists()) {
+      console.log(snapshot.val());
+      let newobj= {...snapshot.val()}
+      console.log(newobj);
+      let newobj2=({...newobj,condition:accept});
+      console.log(newobj2);
+      set(ref(db, `studentData/${newobj2.uid}`),newobj2 ).then(() => {
+        alert("sucess")
+      })
+      navigate("/companyNotification2")
+  })
 }
-const deleteuser=(e)=>{
+const deleteuser=(e,dispatch)=>{
   console.log(e.newobj.user);
   const db = getDatabase();
+  const dbRef = ref(getDatabase());
   const commentsRef = ref(db, `authentication/`+e.newobj.user)
   console.log(commentsRef);
     remove(commentsRef).then((e) => {
       console.log(e,"ggh");
       // deleteComment(e.newobj.user);
     })
+    const commentsRef2 = ref(db, `studentData/`+e.newobj.user)
+    console.log(commentsRef2);
+      remove(commentsRef2).then((e) => {
+        console.log(e,"ggh");
+        // deleteComment(e.newobj.user);
+      })
+      const commentsRef3 = ref(db, `companyData/`+e.newobj.user)
+      console.log(commentsRef3);
+        remove(commentsRef3).then((e) => {
+          console.log(e,"ggh");
+          // deleteComment(e.newobj.user);
+        })
+        const commentsRef4 = ref(db, `companyPostData/`+e.newobj.user)
+        console.log(commentsRef4);
+          remove(commentsRef4).then((e) => {
+            console.log(e,"ggh");
+            // deleteComment(e.newobj.user);
+          })
+          get(child(dbRef, `authentication/`)).then((snapshot) => {
+            // if (snapshot.exists()) {
+              console.log(snapshot.val());
+              let newobj= {...snapshot.val()}
+              console.log(newobj);
+              dispatch({
+                type: "ADMINAUTHENTATION",
+                payload:newobj,
+              })
+            // }
+          })
 }
 export { login, 
   signup,  

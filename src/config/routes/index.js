@@ -8,7 +8,7 @@ import {
 } from "react-router-dom";
 import {
   Admin, Company, Login, SignUp, Data, Home, Home2, Post, CompanyHome, CompanyData, CompanyHiring, CompanyHome2, Notification
-  , CompanyAccount, AdminStudentData, AdminCompanyData, AdimnHome, Hiringdata, CompanyLogin, Companysignup, UsersCv,AdminLogin,Authentitation
+  , CompanyAccount, AdminStudentData, AdminCompanyData, AdimnHome, Hiringdata, CompanyLogin, Companysignup, UsersCv, AdminLogin, Authentitation
 } from './routing';
 export default function Routing() {
   return (
@@ -21,21 +21,19 @@ export default function Routing() {
           <Route exact path="/companylogin" element={<CompanyLogin />} />
           <Route exact path="/companysignup" element={<Companysignup />} />
           <Route exact path="/adminsignin" element={<AdminLogin />} />
-          {/* <Route path="/companylogin" element={<companyLogin />} /> */}
-          <Route exact path="/loginhome2" element={<Home2 />} />
-          <Route exact path="/loginPost2" element={<Post />} />
+          {/* <Route exact path="/loginhome2" element={<Home2 />} /> */}
+          {/* <Route exact path="/loginPost2" element={<Post />} /> */}
           <Route exact path="/logindata2" element={<Data />} />
-          <Route exact path="/companyHome2" element={<CompanyHome2 />} />
-          <Route exact path="/companyAccount2" element={<CompanyAccount />} />
-          <Route exact path="/companyData2" element={<CompanyData />} />
-          <Route exact path="/companyHireforjob2" element={<CompanyHiring />} />
-          <Route exact path="/companyNotification2" element={<Notification />} />
-          <Route path="/companyuserscv2/:uid" element={<UsersCv />} />
-          {/* <Route path="/adminhome2" element={<AdimnHome />} /> */}
-          <Route path="/adminCompanydata" element={<AdminCompanyData />} />
-          <Route path="/adminStudentdata" element={<AdminStudentData />} />
-          <Route path="/adminHiringData" element={<Hiringdata/>} />
-          <Route path="/adminAuthentitation" element={<Authentitation/>} />
+          {/* <Route exact path="/companyHome2" element={<CompanyHome2 />} /> */}
+          {/* <Route exact path="/companyAccount2" element={<CompanyAccount />} /> */}
+          {/* <Route exact path="/companyData2" element={<CompanyData />} /> */}
+          {/* <Route exact path="/companyHireforjob2" element={<CompanyHiring />} /> */}
+          {/* <Route exact path="/companyNotification2" element={<Notification />} /> */}
+          {/* <Route path="/companyuserscv2/:uid" element={<UsersCv />} /> */}
+          {/* <Route path="/adminCompanydata" element={<AdminCompanyData />} /> */}
+          {/* <Route path="/adminStudentdata" element={<AdminStudentData />} /> */}
+          {/* <Route path="/adminHiringData" element={<Hiringdata />} /> */}
+          {/* <Route path="/adminAuthentitation" element={<Authentitation />} /> */}
         </Routes>
         {/* {window.location.pathname === "/" || window.location.pathname === "/signup" || window.location.pathname === "/admin" || window.location.pathname === "/company" || window.location.pathname === "/companylogin" ?
           <>

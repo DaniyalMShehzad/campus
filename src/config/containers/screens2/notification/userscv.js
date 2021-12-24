@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router';
 import { acceptData } from '../../../firebaseconfig/firebaseconfig';
 import CompanyHome from '../companyHome';
 export default function UsersCv() {
@@ -8,6 +9,7 @@ export default function UsersCv() {
     const [data, setData] = useState()
     // console.log(window.location.pathname);
     const dispatch=useDispatch()
+    const navigate=useNavigate()
     const state =useSelector((e)=>e)
     // console.log(Object.values(state.studentdata.userid));
     useEffect(() => {
@@ -25,14 +27,13 @@ export default function UsersCv() {
             const Accept=(e)=>{
                 e.preventDefault()
                 setAccept("Accepted")
-                
-                console.log(data);   
-            dispatch((dispatch)=>acceptData(dispatch,accept,data,usersuid))
+                // console.log(data);   
+            dispatch((dispatch)=>acceptData(dispatch,"Accepted",data,usersuid,navigate))
         }
         const Decline=(e)=>{
             e.preventDefault()
             setAccept("Rejected")
-            dispatch((dispatch)=>acceptData(dispatch,accept,data,usersuid))
+            dispatch((dispatch)=>acceptData(dispatch,"Rejected",data,usersuid,navigate))
         }
     return (
         <>
@@ -73,7 +74,7 @@ export default function UsersCv() {
                             </div>
                             <div className="UsersCvField">
                                 <label className="DataLabel">Experience</label>
-                                <textarea className="DataTextBar" disabled name="w3review" rows="4" cols="58"> </textarea>
+                                {/* <textarea className="DataTextBar" disabled name="w3review" rows="4" cols="58"> </textarea> */}
                             </div>
                         </div>
                         <div className="DivAddData">

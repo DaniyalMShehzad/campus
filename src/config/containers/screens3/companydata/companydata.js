@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router'
 import { companyPostData } from '../../../firebaseconfig/firebaseconfig'
 import AdimnHome from '../adminhome'
-
+import { getDatabase, ref, set, push, get, child, onChildRemoved ,remove} from "firebase/database";
 export default function AdminCompanyData() {
     const [post, setPost] = useState()
     const dispatch =useDispatch()
@@ -14,6 +14,15 @@ export default function AdminCompanyData() {
         dispatch((dispatch)=> companyPostData(dispatch,state))
     },[])
     // console.log(state);
+    const deleteusers = (e) => {
+        console.log(e);
+        const db = getDatabase();
+        const commentsRef = ref(db, `companyData/`+e.uid)
+        console.log(commentsRef);
+          remove(commentsRef).then((e) => {
+            console.log(e,"ggh");
+          })
+    }
     return (
             <>
             <AdimnHome>
@@ -28,7 +37,7 @@ export default function AdminCompanyData() {
                                 <p className="PostDescription">{e.contact}</p>
                                 <p className="PostAddress">{e.address}</p>
                                 {/* <p className="PostAddress">{e.experience}</p> */}
-                                <button className="AddData">Delete</button>
+                                <button onClick={()=>deleteusers(e)} className="AddData">Delete</button>
                             </div>
                             )
                         })}

@@ -3,22 +3,29 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router'
 import { authentication, deleteuser } from '../../../firebaseconfig/firebaseconfig'
 import AdimnHome from '../adminhome'
-
+import { getDatabase, ref, set, push, get, child, onChildRemoved ,remove} from "firebase/database";
 export default function AdminStudentData() {
     const [data, setData] = useState()
     // const { Meta } = Card;
-
+    const [loader,setLoader]=useState(false)
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const state = useSelector((e) => e)
     // console.log(Object.values(state.loginreducer.userid));
     useEffect(() => {
         setData(Object.values(state?.loginreducer?.userid))
-        dispatch((dispatch) => authentication(dispatch, state))
+        dispatch((dispatch) => authentication(dispatch, state,setLoader))
+        setLoader()
     }, [])
+    console.log(loader);
     const deleteusers = (e) => {
-        console.log(e.newobj.user);
-        dispatch(() => deleteuser(e))
+        console.log(e);
+        const db = getDatabase();
+        const commentsRef = ref(db, `studentData/`+e.uid)
+        console.log(commentsRef);
+          remove(commentsRef).then((e) => {
+            console.log(e,"ggh");
+          })
     }
     return (
         <>

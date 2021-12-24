@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { getCompanyData } from '../../../firebaseconfig/firebaseconfig'
 import AdimnHome from '../adminhome'
-
+import { getDatabase, ref, set, push, get, child, onChildRemoved ,remove} from "firebase/database";
 export default function Hiringdata() {
     const [data, setData] = useState()
     // console.log(arr);
@@ -14,6 +14,15 @@ export default function Hiringdata() {
         setData(Object.values(state?.studentdata?.userid))
         dispatch((dispatch) => getCompanyData(dispatch,state))
     }, [])
+    const deleteusers = (e) => {
+        console.log(e);
+        const db = getDatabase();
+        const commentsRef = ref(db, `companyPostData/`+e.uid)
+        console.log(commentsRef);
+          remove(commentsRef).then((e) => {
+            console.log(e,"ggh");
+          })
+    }
     return (
         <>
             <AdimnHome>
@@ -29,7 +38,7 @@ export default function Hiringdata() {
                                         <p className="PostDescription">{e.contact}</p>
                                         <p className="PostAddress">{e.address}</p>
                                         <p className="PostAddress">{e.desc}</p>
-                                        <button className="AddData">Delete</button>
+                                        <button onClick={()=>deleteusers(e)} className="AddData">Delete</button>
                                     </div>
                                 )
                             })}

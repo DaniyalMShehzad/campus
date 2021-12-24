@@ -18,7 +18,7 @@ export default function CompanyData() {
     const state = useSelector(state => state)
     useEffect(() => {
         setDtState(state)
-    }, [state])
+    }, [])
     // console.log(state.uiddata.userid.type.type);
     const Data = (e) => {
         e.preventDefault(e);
@@ -46,21 +46,6 @@ export default function CompanyData() {
     })
     });
     }
-    // console.log(state);
-    // const HandleChange = (e) => {
-    //     let reader = new FileReader();
-    //     reader.onload = () => {
-    //         if (reader.readyState == 2)
-    //         setImage(reader.result);
-    //     };
-    //     if(e.target.file){
-    //         console.log("gfg");
-    //         // reader.readAsDataURL(e.target.files[0]);
-    //     }
-    //     console.log(reader);
-    //     console.log(e.target.files[0]);
-    // }
-
     const HandleChange = (e) => {
         setImage(e.target.files[0])
     }
